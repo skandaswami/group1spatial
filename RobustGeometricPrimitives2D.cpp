@@ -53,32 +53,76 @@ Poi2D::~Poi2D()
 /* logical operators */
 bool Poi2D::operator < (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if(this->x < operand.x)
+	return true;
+	else 
+	return false;
 }
 
 bool Poi2D::operator > (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if(this->x > operand.x)
+	return true;
+	else 
+	return false;
+	
 }
 
 bool Poi2D::operator <= (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if(this->x <= operand.x)
+	return true;
+	else 
+	return false;
+	
 }
 
 bool Poi2D::operator >= (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if(this->x >= operand.x)
+	return true;
+	else 
+	return false;
+	
+
 }
 
 bool Poi2D::operator == (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if( (this->x == operand.x) && (this->y==operand.y) )
+	return true;
+	else 
+	return false;
+	
+
 }
 
 bool Poi2D::operator != (const Poi2D& operand)
 {
+	/*
 	return true;
+	*/
+	if( (this->x != operand.x) || (this->y != operand.y) )
+	return true;
+	else 
+	return false;
+	
+
 }
 
 std::ostream&operator << (std::ostream& os, const Poi2D& output)
@@ -108,42 +152,47 @@ Seg2D::Seg2D(Poi2D p1, Poi2D p2)
 	{
 	this->p1 = p1;
 	this->p2 = p2;
-	//set half segments
 	}
 	else
 	{
-	this->p2 = p1;
 	this->p1 = p2;
-	//set half segments
+	this->p2 = p1;
 	}
-//set half segments
 }
 Seg2D::Seg2D(const Seg2D& obj)
 {
+	this->p1=obj.p1;
+	this->p2=obj.p2;
+	/*
 	if (p1 <= p2)
 	{
 	this->p1 = obj.p1;
 	this->p2 = obj.p2;
-	//set half segments
 	}
 	else
 	{
-	this->p2 = obj.p1;
 	this->p1 = obj.p2;
-	//set half segments
+	this->p2 = obj.p1;
 	}
+	*/
 
 }
 Seg2D::Seg2D(Seg2D&& obj)
 {
-	if (this != &obj){
+	this->p1 = obj.p1;
+	this->p2 = obj.p2;
+	obj.p1 = Poi2D();
+	obj.p2 = Poi2D(Number("1.0"), Number("1.0"));
+	/*
+	if (this != &obj)
+	{
 		if (p1 <= p2)
 		{
 			this->p1 = obj.p1;
 			this->p2 = obj.p2;
 			this->p1 = Poi2D();
 			this->p2 = Poi2D(Number("0.0"), Number("1.0"));
-			//set half segments
+		
 		}
 		else
 		{
@@ -153,29 +202,40 @@ Seg2D::Seg2D(Seg2D&& obj)
 			this->p2 = Poi2D(Number("0.0"), Number("1.0"));
 			//set half segments
 		}
+	 
 	}
+	*/
 }
 Seg2D Seg2D::operator = (const Seg2D& obj)
 {
-	if (this != &obj){
-		if (p1 <= p2)
-		{
+	if (this != &obj)
+	{
 		this->p1 = obj.p1;
 		this->p2 = obj.p2;
-		//set half segments
-		}
-		else
-		{
-			this->p2 = obj.p1;
-			this->p1 = obj.p2;
-			//set half segments
-		}
 	}
 		return *this;
 }
 Seg2D Seg2D::operator = (Seg2D&& obj)
-{
+{	
+
+	if (this != &obj){
+		if (obj.p1 <= obj.p2)
+		{
+		this->p1 = obj.p1;
+		this->p2 = obj.p2;
+		}
+		else
+		{
+			this->p1 = obj.p2;
+			this->p2 = obj.p1;
+		}
+		obj.p1=Poi2D(Number("0.0"), Number("0.0"));
+		obj.p2=Poi2D(Number("1.0"), Number("1.0"));
+	}
+		return *this;
+	/*
 	return Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("0.0")));
+	*/
 }
 Seg2D::~Seg2D()
 {
@@ -186,29 +246,60 @@ Seg2D::~Seg2D()
 
 
 /* logical operators */
+//The leftmost point of segment1 lies before the leftmost point of segment 2.
 bool Seg2D::operator < (const Seg2D& operand)
 {
+	if(this->p1 < operand.p1)
+		return true;
+	else 
+		return false;
+	/*
 	return true;
+	*/
 }
 
 bool Seg2D::operator > (const Seg2D& operand)
 {
+	if(this->p1 > operand.p1)
+		return true;
+	else 
+		return false;
+	/*
 	return true;
+	*/
 }
 
 bool Seg2D::operator <= (const Seg2D& operand)
-{
+{	
+	if(this->p1 <= operand.p1)
+		return true;
+	else 
+		return false;
+	/*
 	return true;
+	*/
 }
 
 bool Seg2D::operator >= (const Seg2D& operand)
 {
+	if(this->p1 >= operand.p1)
+		return true;
+	else 
+		return false;
+	/*
 	return true;
+	*/
 }
 
 bool Seg2D::operator == (const Seg2D& operand)
 {
+	if( (this->p2 == operand.p2) && (this->p2 == operand.p2) )
+		return true;
+	else 
+		return false;
+	/*
 	return true;
+	*/
 }
 
 bool Seg2D::operator != (const Seg2D& operand)
@@ -691,7 +782,4 @@ Rect2D computeRect2D(const SimplePolygon2D& simplepolygon)
 	return Rect2D();
 }
 //Returns whether Rect2D computation is possible
-bool isRect2DPossible()
-{
-	return true;
-}
+bool isRect2DPossible();

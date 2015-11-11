@@ -53,75 +53,84 @@ Poi2D::~Poi2D()
 /* logical operators */
 bool Poi2D::operator < (const Poi2D& operand)
 {
-	/*
-	return true;
-	*/
-	if(this->x < operand.x)
-	return true;
-	else 
-	return false;
+
+	if (this->x < operand.x)
+		return true;
+
+	else if (this->x == operand.x && this->y < operand.y)
+		return true;
+
+	else
+		return false;
 }
 
-bool Poi2D::operator > (const Poi2D& operand)
+bool Poi2D::operator >(const Poi2D& operand)
 {
-	/*
-	return true;
-	*/
-	if(this->x > operand.x)
-	return true;
-	else 
-	return false;
-	
+
+	if (this->x > operand.x)
+		return true;
+
+	else if (this->x == operand.x && this->y > operand.y)
+		return true;
+
+	else
+		return false;
+
+}
+bool Poi2D::operator == (const Poi2D& operand)
+{
+
+	if ((this->x == operand.x) && (this->y == operand.y))
+		return true;
+	else
+		return false;
+
+
 }
 
 bool Poi2D::operator <= (const Poi2D& operand)
 {
-	/*
-	return true;
-	*/
-	if(this->x <= operand.x)
-	return true;
-	else 
-	return false;
-	
+
+	if (this->x < operand.x)
+		return true;
+
+	else if (this->x == operand.x && this->y < operand.y)
+		return true;
+
+	else if (this->x == operand.x && this->y == operand.y)
+		return true;
+
+	else
+		return false;
+
 }
 
 bool Poi2D::operator >= (const Poi2D& operand)
 {
-	/*
-	return true;
-	*/
-	if(this->x >= operand.x)
-	return true;
-	else 
-	return false;
-	
 
-}
+	if (this->x > operand.x)
+		return true;
 
-bool Poi2D::operator == (const Poi2D& operand)
-{
-	/*
-	return true;
-	*/
-	if( (this->x == operand.x) && (this->y==operand.y) )
-	return true;
-	else 
-	return false;
-	
+	else if (this->x == operand.x && this->y > operand.y)
+		return true;
+
+	else if (this->x == operand.x && this->y == operand.y)
+		return true;
+
+	else
+		return false;
+
 
 }
 
 bool Poi2D::operator != (const Poi2D& operand)
 {
-	/*
-	return true;
-	*/
-	if( (this->x != operand.x) || (this->y != operand.y) )
-	return true;
-	else 
-	return false;
-	
+	if ((this->x != operand.x) || (this->y != operand.y))
+		return true;
+
+	else
+		return false;
+
 
 }
 
@@ -132,7 +141,7 @@ std::ostream&operator << (std::ostream& os, const Poi2D& output)
 }
 std::istream&operator >> (std::istream& is, const Poi2D& input)
 {
-	std::cout << "input x and y numbers";
+	std::cout << "Enter the x and y coordinates:";
 	is >> input.x >> input.y;
 	return is;
 }
@@ -150,32 +159,19 @@ Seg2D::Seg2D(Poi2D p1, Poi2D p2)
 {
 	if (p1 <= p2)
 	{
-	this->p1 = p1;
-	this->p2 = p2;
+		this->p1 = p1;
+		this->p2 = p2;
 	}
 	else
 	{
-	this->p1 = p2;
-	this->p2 = p1;
+		this->p1 = p2;
+		this->p2 = p1;
 	}
 }
 Seg2D::Seg2D(const Seg2D& obj)
 {
-	this->p1=obj.p1;
-	this->p2=obj.p2;
-	/*
-	if (p1 <= p2)
-	{
 	this->p1 = obj.p1;
 	this->p2 = obj.p2;
-	}
-	else
-	{
-	this->p1 = obj.p2;
-	this->p2 = obj.p1;
-	}
-	*/
-
 }
 Seg2D::Seg2D(Seg2D&& obj)
 {
@@ -183,28 +179,7 @@ Seg2D::Seg2D(Seg2D&& obj)
 	this->p2 = obj.p2;
 	obj.p1 = Poi2D();
 	obj.p2 = Poi2D(Number("1.0"), Number("1.0"));
-	/*
-	if (this != &obj)
-	{
-		if (p1 <= p2)
-		{
-			this->p1 = obj.p1;
-			this->p2 = obj.p2;
-			this->p1 = Poi2D();
-			this->p2 = Poi2D(Number("0.0"), Number("1.0"));
-		
-		}
-		else
-		{
-			this->p2 = obj.p1;
-			this->p1 = obj.p2;
-			this->p1 = Poi2D();
-			this->p2 = Poi2D(Number("0.0"), Number("1.0"));
-			//set half segments
-		}
-	 
-	}
-	*/
+
 }
 Seg2D Seg2D::operator = (const Seg2D& obj)
 {
@@ -213,109 +188,115 @@ Seg2D Seg2D::operator = (const Seg2D& obj)
 		this->p1 = obj.p1;
 		this->p2 = obj.p2;
 	}
-		return *this;
+	return *this;
 }
 Seg2D Seg2D::operator = (Seg2D&& obj)
-{	
+{
 
 	if (this != &obj){
-		if (obj.p1 <= obj.p2)
-		{
+
 		this->p1 = obj.p1;
 		this->p2 = obj.p2;
-		}
-		else
-		{
-			this->p1 = obj.p2;
-			this->p2 = obj.p1;
-		}
-		obj.p1=Poi2D(Number("0.0"), Number("0.0"));
-		obj.p2=Poi2D(Number("1.0"), Number("1.0"));
+
+		obj.p1 = Poi2D(Number("0.0"), Number("0.0"));
+		obj.p2 = Poi2D(Number("1.0"), Number("1.0"));
 	}
-		return *this;
-	/*
-	return Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("0.0")));
-	*/
+	return *this;
 }
 Seg2D::~Seg2D()
 {
-	
+
 }
-//Removed compute halfsegment functions 
 
+/*  Seg2D's logical operators */
 
-
-/* logical operators */
-//The leftmost point of segment1 lies before the leftmost point of segment 2.
+//Overloading the < operator for segments.
 bool Seg2D::operator < (const Seg2D& operand)
 {
-	if(this->p1 < operand.p1)
+	if (this->p1 < operand.p1)
 		return true;
-	else 
+
+	else if (this->p1 == operand.p1 && this->p2 < operand.p2)
+		return true;
+
+	else
 		return false;
-	/*
-	return true;
-	*/
+
 }
 
-bool Seg2D::operator > (const Seg2D& operand)
+//Overloading the > operator for segments.
+bool Seg2D::operator >(const Seg2D& operand)
 {
-	if(this->p1 > operand.p1)
+	if (this->p1 > operand.p1)
 		return true;
-	else 
+
+	else if (this->p1 == operand.p1 && this->p2 > operand.p2)
+		return true;
+
+	else
 		return false;
-	/*
-	return true;
-	*/
 }
 
-bool Seg2D::operator <= (const Seg2D& operand)
-{	
-	if(this->p1 <= operand.p1)
-		return true;
-	else 
-		return false;
-	/*
-	return true;
-	*/
-}
-
-bool Seg2D::operator >= (const Seg2D& operand)
-{
-	if(this->p1 >= operand.p1)
-		return true;
-	else 
-		return false;
-	/*
-	return true;
-	*/
-}
-
+//Overloading the == operator for segments.
 bool Seg2D::operator == (const Seg2D& operand)
 {
-	if( (this->p2 == operand.p2) && (this->p2 == operand.p2) )
+	if ((this->p2 == operand.p2) && (this->p2 == operand.p2))
 		return true;
-	else 
+	else
 		return false;
-	/*
-	return true;
-	*/
 }
 
+//Overloading the <= operator for segments.
+bool Seg2D::operator <= (const Seg2D& operand)
+{
+	if (this->p1 < operand.p1)
+		return true;
+
+	else if (this->p1 == operand.p1 && this->p2 < operand.p2)
+		return true;
+
+	else if (this->p1 == operand.p1 && this->p2 == operand.p2)
+		return true;
+
+	else
+		return false;
+}
+
+//Overloading the >= operator for segments.
+bool Seg2D::operator >= (const Seg2D& operand)
+{
+	if (this->p1 > operand.p1)
+		return true;
+
+	else if (this->p1 == operand.p1 && this->p2 > operand.p2)
+		return true;
+
+	else if (this->p1 == operand.p1 && this->p2 == operand.p2)
+		return true;
+	else
+		return false;
+}
+
+//Overloading the != operator for segments.
 bool Seg2D::operator != (const Seg2D& operand)
 {
-	return true;
+	if (this->p1 != operand.p1 || this->p2 != operand.p2)
+		return true;
+	else
+		return false;
 }
 
+//Overloading the ostream operator for segments.
 std::ostream&operator << (std::ostream& os, const Seg2D& output)
 {
 	os << "Point 1: " << output.p1 << "\nPoint 2: " << output.p2;
 	return os;
 }
 
-std::istream&operator >> (std::istream& is, const Seg2D& input) //added
+//Overloading the instream operator for segments.
+std::istream&operator >> (std::istream& is, const Seg2D& input)
 {
-	std::cout << "input p1 and p2 ";
+	std::cout << "Enter the coordinates for the points p1 and p2: ";
 	is >> input.p1 >> input.p2;
 	return is;
 }
@@ -327,11 +308,13 @@ HalfSeg2D::HalfSeg2D()
 	this->isLeft = true;
 	this->seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
 }
+
 HalfSeg2D::HalfSeg2D(Seg2D seg, bool isLeft)
 {
 	this->seg = seg;
 	this->isLeft = isLeft;
 }
+
 HalfSeg2D::HalfSeg2D(const HalfSeg2D& obj)
 {
 	this->seg = obj.seg;
@@ -353,13 +336,40 @@ HalfSeg2D HalfSeg2D::operator = (HalfSeg2D&& obj)
 }
 HalfSeg2D::~HalfSeg2D()
 {
-	
+
 }
 
 /* logical operators */
 bool HalfSeg2D::operator < (const HalfSeg2D& operand)
 {
-	return true;
+	Seg2D seg1 = this->seg;
+	Seg2D seg2 = operand.seg;
+	Poi2D dominatingPointOfSeg1;
+	Poi2D dominatingPointOfSeg2;
+	if (this->isLeft == true){
+		dominatingPointOfSeg1 = seg1.p1;
+	}
+	else
+	{
+		dominatingPointOfSeg1 = seg1.p2;
+	}
+
+	if (operand.isLeft == true){
+		dominatingPointOfSeg2 = seg2.p1;
+	}
+	else
+	{
+		dominatingPointOfSeg2 = seg2.p2;
+	}
+
+	if (dominatingPointOfSeg1 < dominatingPointOfSeg2 || ( dominatingPointOfSeg1 == dominatingPointOfSeg2 && (!this->isLeft && operand.isLeft))){
+		return true;
+	}
+	else{
+		return false;
+	}
+	
+
 }
 
 bool HalfSeg2D::operator > (const HalfSeg2D& operand)
@@ -422,7 +432,7 @@ AttrHalfSeg2D AttrHalfSeg2D::operator = (AttrHalfSeg2D&& obj)
 }
 AttrHalfSeg2D::~AttrHalfSeg2D()
 {
-	
+
 }
 
 /* logical operators */
@@ -489,7 +499,7 @@ Rect2D Rect2D::operator = (Rect2D&& obj)
 }
 Rect2D::~Rect2D()
 {
-	
+
 
 }
 
@@ -523,7 +533,7 @@ SimplePolygon2D::SimplePolygon2D(SimplePolygon2D&& obj)
 }
 SimplePolygon2D :: 	~SimplePolygon2D()
 {
-	
+
 }
 
 /* logical operators */
@@ -649,40 +659,72 @@ bool SegmentLiesRightOfSegment(const Seg2D& seg1, const Seg2D& seg2)
 {
 	return true;
 }
+bool SegmentIsCollinear(Seg2D& seg1, Seg2D& seg2)
+{
+	Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
+	Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
+	Number seg1yintercept = (seg1.p1.y) - ((seg1slope)*seg1.p1.x);
+	Number seg2yintercept = (seg2.p1.y) - ((seg2slope)*seg2.p1.x);
+
+	if (seg1slope == seg2slope && seg1yintercept == seg2yintercept)
+		return true;
+
+}
 // Returns true if seg1 SegmentLies to the left and is collinear to seg2.
-bool SegmentLiesLeftOFSegmentAndIsCollinear(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentLiesLeftOFSegmentAndIsCollinear(Seg2D& seg1, Seg2D& seg2)
 {
 	return true;
 }
 // Returns true if seg1 SegmentLies to the right and is collinear to seg2.
-bool SegmentLiesRightOfSegmentAndIsCollinear(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentLiesRightOfSegmentAndIsCollinear(Seg2D& seg1, Seg2D& seg2)
 {
 	return true;
 }
 // Returns true if the segments are collinear and meets only at the left endpoint of seg1.
-bool SegmentIsCollinearAndMeetsLeftEndpoint(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsCollinearAndMeetsLeftEndpoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	
+	if (SegmentIsCollinear(seg1, seg2) && seg1.p1 == seg2.p1)
+		return true;
+	else
+		return false;
+
 }
 // Returns true if the segments are collinear and meets only at the right endpoint of seg1.
-bool SegmentIsCollinearAndMeetsRightEndpoint(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsCollinearAndMeetsRightEndpoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+
+	if (SegmentIsCollinear(seg1, seg2) && seg1.p2 == seg2.p2)
+		return true;
+	else
+		return false;
+
 }
 // Returns true if the segments are collinear and meet at both the left and right endpoints of seg1. The line lies exactly on top of the other.
-bool SegmentIsCollinearAndMeetsBothEndpoint(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsCollinearAndMeetsBothEndpoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+
+	if (SegmentIsCollinear(seg1, seg2) && (seg1.p1 == seg2.p1)&&(seg1.p2==seg2.p2))
+		return true;
+	else
+		return false;
 }
 // Returns true if the segments are collinear and seg2 goes beyond seg1's left endpoint.
-bool SegmentIsCollinearAndCrossesLeftEndpoint(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsCollinearAndCrossesLeftEndpoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+
+	if (SegmentIsCollinear(seg1, seg2) && (seg2.p1 < seg1.p1))
+		return true;
+	else
+		return false;
 }
 // Returns true if the segments are collinear and seg2 goes beyond seg1's right endpoint.
-bool SegmentIsCollinearAndCrossesRightEndpoint(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsCollinearAndCrossesRightEndpoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentIsCollinear(seg1, seg2) && (seg2.p2 > seg1.p2))
+		return true;
+	else
+		return false;
 }
 //Returns true if the segments are parallel
 bool SegmentIsParallel(const Seg2D& seg1, const Seg2D& seg2)

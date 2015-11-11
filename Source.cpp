@@ -16,48 +16,93 @@ int main()
 	BigRational b("3", "5");
 
 	bool answer = a == b;
-	cout << "Big Rational varaiable multiplication:"<<a * b << endl;
-	cout << "Big Rational varaiable division:"<<a / b << endl;
+	cout << "Big Rational varaiable multiplication:" << a * b << endl;
+	cout << "Big Rational varaiable division:" << a / b << endl;
 
-	Poi2D p1(Number("1.0"),Number("2.0"));
-	Poi2D p2(Number("2.0"),Number("3.0"));
-	Poi2D p3(Number("2.0"),Number("3.0"));
-	Poi2D p4(Number("5.0"),Number("6.0"));
-	Poi2D p5(Number("2.0"),Number("5.0"));
-	cout<<"Point p1:"<<p1<<endl;
-	cout<<"Point p2:"<<p2<<endl;
-	cout<<"Point p3:"<<p3<<endl;
-	cout<<"Point p4:"<<p4<<endl;
-	cout<<"Point p5:"<<p5<<endl;
+	Poi2D p1(Number("1.0"), Number("1.0"));
+	Poi2D p2(Number("2.0"), Number("2.0"));
+	Poi2D p3(Number("2.0"), Number("2.0"));
+	Poi2D p4(Number("5.0"), Number("6.0"));
+	Poi2D p5(Number("2.0"), Number("5.0"));
+	cout << "Point p1:" << p1 << endl;
+	cout << "Point p2:" << p2 << endl;
+	cout << "Point p3:" << p3 << endl;
+	cout << "Point p4:" << p4 << endl;
+	cout << "Point p5:" << p5 << endl;
 	
-	
-	if(p1 < p2)
-	{
-		cout << "The point"<<p1<<" is less than the point "<<p2<< endl;
+	Seg2D s1(p1, p2);
+	Seg2D s2(p1, p3);
+
+
+	HalfSeg2D leftHalfS1(s1, true);
+	HalfSeg2D rightHalfS1(s1, false);
+
+	HalfSeg2D leftHalfS2(s2, true);
+	HalfSeg2D rightHalfS2(s2, false);
+
+	cout << "HalfSeg2D for s1 is " << leftHalfS1;
+	cout << "--HalfSeg2D is " << rightHalfS1;
+	cout << "HalfSeg2D is " << leftHalfS2;
+	cout << "HalfSeg2D is " << rightHalfS2;
+
+	// We need to figure out if the leftHalfS1 is lesser than righttHalfS2
+
+	if (leftHalfS1 < rightHalfS2){
+		cout << "yes";
 	}
-	
-	if(p4 > p1)
-	{
-		cout << "The point"<<p4<<" is greater than the point "<<p2<< endl;
+	else{
+		cout << "No";
 	}
-	
-	if(p2 == p3)
+
+
+	if (p1 < p2)
 	{
-		cout << "The point"<<p2<<" is equal to the point "<<p3<< endl;
+		cout << "The point" << p1 << " is less than the point " << p2 << endl;
 	}
-	
-	if(p3 <= p5)
+
+	if (p4 > p1)
 	{
-		cout << "The point"<<p3<<" is less than or equal to the point "<<p5<< endl;
+		cout << "The point" << p4 << " is greater than the point " << p2 << endl;
 	}
-	if(p3 >= p5)
+
+	if (p2 == p3)
 	{
-		cout << "The point"<<p3<<" is greater than or equal to the point "<<p5<< endl;
+		cout << "The point" << p2 << " is equal to the point " << p3 << endl;
+	}
+
+	if (p3 <= p5)
+	{
+		cout << "The point" << p3 << " is less than or equal to the point " << p5 << endl;
+	}
+	if (p3 >= p5)
+	{
+		cout << "The point" << p3 << " is greater than or equal to the point " << p5 << endl;
 	}
 	else
 	{
-		cout << "The point"<<p3<<" is less than the point "<<p5<< endl;
+		cout << "The point" << p3 << " is less than the point " << p5 << endl;
 	}
+	
+	//Checking collinearity and meets the left end point with s1 and s2
+	if ( SegmentIsCollinearAndMeetsLeftEndpoint(s1,s2) )
+		cout << "yeah they're collinear and meet left endpoint."<<endl;
+	else
+		cout << "No either not collinear or does not meet left endpoint." << endl;
+	
+	if (SegmentIsCollinearAndMeetsRightEndpoint(s1, s2))
+		cout << "yeah they're collinear and meet right endpoint." << endl;
+	else
+		cout << "No either not collinear or does not meet right endpoint." << endl;
+
+	if (SegmentIsCollinearAndMeetsBothEndpoint(s1, s2))
+		cout << "yeah they're collinear and meet both endpoints." << endl;
+	else
+		cout << "No either not collinear or does not meet both endpoints." << endl;
+
+	
+	getchar();
+	return 0;
+
 	
 	
 	/*unsigned int a = 4333234234234 * 22450000000000;

@@ -16,24 +16,24 @@ public:
 	~BigRational();
 	/* mathematical operations */
 	BigRational operator+(const BigRational& operand);
-	
+
 	BigRational operator-(const BigRational& operand);
-	
+
 	BigRational operator*(const BigRational& operand);
-	
+
 	BigRational operator/(const BigRational& operand);
 
 	/* logical operators */
 	bool operator<(const BigRational& operand);
-	
+
 	bool operator>(const BigRational& operand);
-	
+
 	bool operator<=(const BigRational& operand);
-	
+
 	bool operator>=(const BigRational& operand);
-	
+
 	bool operator==(const BigRational& operand);
-	
+
 	bool operator!=(const BigRational& operand);
 
 	/* output */

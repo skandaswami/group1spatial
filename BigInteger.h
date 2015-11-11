@@ -17,26 +17,26 @@ public:
 	~BigInteger();
 	/* mathematical operations */
 	BigInteger operator+(const BigInteger& operand);
-	
+
 	BigInteger operator-(const BigInteger& operand);
-	
+
 	BigInteger operator*(const BigInteger& operand);
-	
+
 	BigInteger operator/(const BigInteger& operand);
-	
+
 	BigInteger operator%(const BigInteger& operand);
 
 	/* logical operators */
 	bool operator<(const BigInteger& operand);
-	
+
 	bool operator>(const BigInteger& operand);
-	
+
 	bool operator<=(const BigInteger& operand);
-	
+
 	bool operator>=(const BigInteger& operand);
-	
+
 	bool operator==(const BigInteger& operand);
-	
+
 	bool operator!=(const BigInteger& operand);
 
 	/* output */

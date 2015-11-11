@@ -5,6 +5,7 @@
 #include <vector>
 #include "Number.h"
 
+
 /*
 *Point Class
 */
@@ -205,13 +206,14 @@ bool SegmentLiesAboveSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesBelowSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesLeftOFSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesRightOfSegment(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentLiesLeftOFSegmentAndIsCollinear(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentLiesRightOfSegmentAndIsCollinear(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentIsCollinearAndMeetsLeftEndpoint(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentIsCollinearAndMeetsRightEndpoint(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentIsCollinearAndCrossesLeftEndpoint(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentIsCollinearAndCrossesRightEndpoint(const Seg2D& seg, const Seg2D& seg1);
-bool SegmentIsCollinearAndMeetsBothEndpoint(const Seg2D& seg, const Seg2D& seg1);
+bool SegmentIsCollinear(Seg2D& seg, Seg2D& seg1);
+bool SegmentLiesLeftOFSegmentAndIsCollinear(Seg2D& seg, Seg2D& seg1);
+bool SegmentLiesRightOfSegmentAndIsCollinear(Seg2D& seg, Seg2D& seg1);
+bool SegmentIsCollinearAndMeetsLeftEndpoint(Seg2D& seg, Seg2D& seg1);
+bool SegmentIsCollinearAndMeetsRightEndpoint(Seg2D& seg,Seg2D& seg1);
+bool SegmentIsCollinearAndCrossesLeftEndpoint(Seg2D& seg, Seg2D& seg1);
+bool SegmentIsCollinearAndCrossesRightEndpoint(Seg2D& seg, Seg2D& seg1);
+bool SegmentIsCollinearAndMeetsBothEndpoint(Seg2D& seg, Seg2D& seg1);
 bool SegmentIsParallel(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentIsParallelAndAbove(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentIsParallelAndBelow(const Seg2D& seg, const Seg2D& seg1);

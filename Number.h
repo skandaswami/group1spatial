@@ -19,24 +19,24 @@ public:
 
 	/*mathematical operations*/
 	Number operator+(const Number& operand);
-	
+
 	Number operator-(const Number& operand);
-	
+
 	Number operator*(const Number& operand);
-	
+
 	Number operator/(const Number& operand);
 
 	/*logical operations*/
 	bool operator<(const Number& operand);
-	
+
 	bool operator>(const Number& operand);
-	
+
 	bool operator<=(const Number& operand);
-	
+
 	bool operator>=(const Number& operand);
-	
+
 	bool operator==(const Number& operand);
-	
+
 	bool operator!=(const Number& operand);
 
 	friend std::ostream&operator<<(std::ostream& os, const Number& output);

@@ -201,6 +201,7 @@ bool PointLiesRightOfSegmentAndIsCollinear(const Poi2D& poi, const Seg2D& seg);
 /*
 *Relationships between Segments
 */
+bool SegmentIsLesserThanSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesOn(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesAboveSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesBelowSegment(const Seg2D& seg, const Seg2D& seg1);

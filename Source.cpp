@@ -110,8 +110,6 @@ int main()
 	getchar();
 	return 0;
 
-	
-
 	/*unsigned int a = 4333234234234 * 22450000000000;
 	cout << UINT_MAX<< endl << a << endl;
 	return 0;*/

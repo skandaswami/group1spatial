@@ -189,7 +189,7 @@ private:
 */
 
 bool PointLiesOnSegment(const Poi2D& poi, const Seg2D& seg);
-bool PointLiesAboveSegment(const Poi2D& poi, const Seg2D& seg);
+bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg);
 bool PointLiesBelowSegment(const Poi2D& poi, const Seg2D& seg);
 bool PointLiesAboveOrOnSegment(const Poi2D& poi, const Seg2D& seg);
 bool PointLiesBelowOrOnSegment(const Poi2D& poi, const Seg2D& seg);
@@ -201,7 +201,7 @@ bool PointLiesRightOfSegmentAndIsCollinear(const Poi2D& poi, const Seg2D& seg);
 /*
 *Relationships between Segments
 */
-bool SegmentIsLesserThanSegment(const Seg2D& seg, const Seg2D& seg1);
+bool SegmentIsLesserThanSegment(Seg2D& seg, Seg2D& seg1);
 bool SegmentLiesOn(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesAboveSegment(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentLiesBelowSegment(const Seg2D& seg, const Seg2D& seg1);

@@ -523,13 +523,7 @@ Rect2D Rect2D::operator = (Rect2D&& obj)
 }
 Rect2D::~Rect2D()
 {
-<<<<<<< Updated upstream
 
-
-=======
- 
- 
->>>>>>> Stashed changes
 }
  
 std::ostream&operator << (std::ostream& os, const Rect2D& output)
@@ -620,13 +614,13 @@ bool PointLiesOnSegment(const Poi2D& poi, const Seg2D& seg)
         return true;
 }
 // Returns true if poi PointLies above the segment.
-bool PointLiesAboveSegment(const Poi2D& poi, const Seg2D& seg)
+bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg)
 {
        Poi2D a = seg.p1;
        Poi2D b = seg.p2;
        Poi2D c = poi;
        Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-		if(isAntiClockWise == "1"){
+		if(isAntiClockWise == Number("1")){
 			return true;
 		}else{
 			return false;
@@ -640,7 +634,7 @@ bool PointLiesBelowSegment(const Poi2D& poi, const Seg2D& seg)
        Poi2D b = seg.p2;
        Poi2D c = poi;
        Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-		if(isAntiClockWise == "-1"){
+		if(isAntiClockWise == Number("-1")){
 			return true;
 		}else{
 			return false;
@@ -682,14 +676,14 @@ Functions between segments
 */
 //Returns true if seg1 lies on seg2.
 
-bool SegmentIsLesserThanSegment(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentIsLesserThanSegment(Seg2D& seg1, Seg2D& seg2)
 {
 		Poi2D p1 = seg1.p1;
 		Poi2D p2 = seg1.p2;
 		Poi2D p3 = seg2.p1;
 		Poi2D p4 = seg2.p2;
-        Number lengthOfSeg1 = (p2.y - p1.y)(p2.y - p1.y) + (p2.x - p1.x)(p2.x - p1.x);
-        Number lengthOfSeg2 = (p4.y - p3.y)(p4.y - p3.y) + (p4.x - p3.x)(p4.x - p3.x);
+        Number lengthOfSeg1 = (p2.y - p1.y)*(p2.y - p1.y) + (p2.x - p1.x)*(p2.x - p1.x);
+        Number lengthOfSeg2 = (p4.y - p3.y)*(p4.y - p3.y) + (p4.x - p3.x)*(p4.x - p3.x);
         if(lengthOfSeg1 < lengthOfSeg2){
         	return true;
     	}else{
@@ -730,6 +724,8 @@ bool SegmentIsCollinear(Seg2D& seg1, Seg2D& seg2)
 
 	if (seg1slope == seg2slope && seg1yintercept == seg2yintercept)
 		return true;
+	else
+		return false;
 
 }
 // Returns true if seg1 SegmentLies to the left and is collinear to seg2.

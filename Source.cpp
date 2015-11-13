@@ -21,11 +21,11 @@ int main()
 
 
 	Poi2D p1(Number("1.0"), Number("2.0"));
-	Poi2D p2(Number("2.0"), Number("3.0"));
+	Poi2D p2(Number("1.0"), Number("2.0"));
 	Poi2D p3(Number("2.0"), Number("3.0"));
 
-	Poi2D p4(Number("5.0"), Number("6.0"));
-	Poi2D p5(Number("2.0"), Number("5.0"));
+	Poi2D p4(Number("3.0"), Number("1.0"));
+	Poi2D p5(Number("3.0"), Number("4.0"));
 	cout << "Point p1:" << p1 << endl;
 	cout << "Point p2:" << p2 << endl;
 	cout << "Point p3:" << p3 << endl;
@@ -33,10 +33,10 @@ int main()
 	cout << "Point p5:" << p5 << endl;
 
 
-	Seg2D s1(p1, p5);
+	Seg2D s1(p1, p4);
 	cout << "Seg2D is " << s1;
 
-	Seg2D s2(p2, p4);
+	Seg2D s2(p2, p5);
 	cout << "Seg2D is " << s2;
 
 
@@ -49,15 +49,21 @@ int main()
 	cout << "HalfSeg2D for s1 is " << leftHalfS1;
 	cout << "--HalfSeg2D is " << rightHalfS1;
 	cout << "HalfSeg2D is " << leftHalfS2;
-	cout << "HalfSeg2D is " << rightHalfS2;
+	cout << "---HalfSeg2D is " << rightHalfS2;
 
 	// We need to figure out if the leftHalfS1 is lesser than righttHalfS2
-
-	if (leftHalfS1 < rightHalfS2){
-		cout << "yes";
+     if (leftHalfS1 < rightHalfS2){
+		cout << "yes----";
 	}
 	else{
-		cout << "No";
+		cout << "No!!!!!!";
+	}
+
+	if (leftHalfS2 < leftHalfS1){
+		cout << "yes----";
+	}
+	else{
+		cout << "No!!!!!!";
 	}
 
 

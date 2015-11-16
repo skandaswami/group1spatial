@@ -245,6 +245,7 @@ Rect2D computeRect2D(const Seg2D& seg);
 Rect2D computeRect2D(const SimplePolygon2D& simplepolygon);
 //Returns whether Rect2D computation is possible
 bool isRect2DPossible();
+bool SegmentIsLesserThanSegment(Seg2D& seg1, Seg2D& seg2);
 #endif
 
 

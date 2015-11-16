@@ -325,34 +325,48 @@ bool HalfSeg2D::operator < (const HalfSeg2D& operand)
 	Seg2D seg2 = operand.seg;
 	Poi2D dominatingPointOfSeg1;
 	Poi2D dominatingPointOfSeg2;
-	
-	if (this->isLeft == true)
-	{
+	Poi2D nonDominatingPointOfSeg1;
+	Poi2D nonDominatingPointOfSeg2;
+	if (this->isLeft == true){
 		dominatingPointOfSeg1 = seg1.p1;
+		nonDominatingPointOfSeg1 = seg1.p2;
 	}
 	else
 	{
 		dominatingPointOfSeg1 = seg1.p2;
+		nonDominatingPointOfSeg1 = seg1.p1;
 	}
 
-	if (operand.isLeft == true)
-	{
+	if (operand.isLeft == true){
 		dominatingPointOfSeg2 = seg2.p1;
+		nonDominatingPointOfSeg2 = seg2.p2;
 	}
 	else
 	{
 		dominatingPointOfSeg2 = seg2.p2;
+		nonDominatingPointOfSeg2 = seg2.p1;
 	}
 
-	if (dominatingPointOfSeg1 < dominatingPointOfSeg2 || ( dominatingPointOfSeg1 == dominatingPointOfSeg2 && (!this->isLeft && operand.isLeft)))
-	{
+	std::cout << "dominatingPointOfSeg1" << dominatingPointOfSeg1;
+	std::cout << "dominatingPointOfSeg2" << dominatingPointOfSeg2;
+	std::cout << "nonDominatingPointOfSeg1" << nonDominatingPointOfSeg1;
+	std::cout << "nonDominatingPointOfSeg2" << nonDominatingPointOfSeg2;
+
+	if (dominatingPointOfSeg1 < dominatingPointOfSeg2
+		|| (dominatingPointOfSeg1 == dominatingPointOfSeg2 && (!this->isLeft && operand.isLeft))
+		|| (this->isLeft == operand.isLeft &&
+		(
+		(operand.isLeft == true && PointLiesAboveSegment(nonDominatingPointOfSeg2, seg1))
+		|| (operand.isLeft == false && PointLiesBelowSegment(nonDominatingPointOfSeg2, seg1))
+		)
+		)
+		|| (this->isLeft == operand.isLeft && SegmentIsCollinearAndMeetsLeftEndpoint(seg1, seg2) && SegmentIsLesserThanSegment(seg1, seg2))
+		){
 		return true;
 	}
-	else
-	{
+	else{
 		return false;
 	}
-	
 
 }
 
@@ -575,15 +589,38 @@ bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg)
 }
 
 // Returns true if poi PointLies above the segment.
-bool PointLiesAboveSegment(const Poi2D& poi, const Seg2D& seg)
+bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg)
 {
-	return true;
+	Poi2D a = seg.p1;
+	Poi2D b = seg.p2;
+	Poi2D c = poi;
+	Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+	std::cout << "isAntiClockWise????" << isAntiClockWise;
+	//return true;
+	if (isAntiClockWise >= Number("0")){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 // Returns true if poi PointLies below the segment.
-bool PointLiesBelowSegment(const Poi2D& poi, const Seg2D& seg)
+bool PointLiesBelowSegment(Poi2D& poi, Seg2D& seg)
 {
-	return true;
+	Poi2D a = seg.p1;
+	Poi2D b = seg.p2;
+	Poi2D c = poi;
+
+	Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+	//std::cout<<"isAntiClockWise????"<<isAntiClockWise;
+	//return true;
+	if (isAntiClockWise <= Number("0")){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 // Returns true if poi PointLies on or above the segment.
@@ -865,3 +902,18 @@ Rect2D computeRect2D(const SimplePolygon2D& simplepolygon)
 }
 //Returns whether Rect2D computation is possible
 bool isRect2DPossible();
+bool SegmentIsLesserThanSegment(Seg2D& seg1, Seg2D& seg2)
+{
+	Poi2D p1 = seg1.p1;
+	Poi2D p2 = seg1.p2;
+	Poi2D p3 = seg2.p1;
+	Poi2D p4 = seg2.p2;
+	Number lengthOfSeg1 = (p2.y - p1.y)*(p2.y - p1.y) + (p2.x - p1.x)*(p2.x - p1.x);
+	Number lengthOfSeg2 = (p4.y - p3.y)*(p4.y - p3.y) + (p4.x - p3.x)*(p4.x - p3.x);
+	if (lengthOfSeg1 < lengthOfSeg2){
+		return true;
+	}
+	else{
+		return false;
+	}
+}

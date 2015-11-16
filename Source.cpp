@@ -48,10 +48,34 @@ int main()
 	// We need to figure out if the leftHalfS1 is lesser than righttHalfS2
 
 	if (leftHalfS1 < rightHalfS2){
-		cout << "yes";
+		cout << "yes less than";
 	}
 	else{
-		cout << "No";
+		cout << "No less than";
+	}
+
+
+	if (leftHalfS1 == rightHalfS2){
+		cout << "yes equal to!!";
+	}
+	else{
+		cout << "No equal to--";
+	}
+
+
+	if (leftHalfS1 <= rightHalfS2){
+		cout << "yes less than equal to!!";
+	}
+	else{
+		cout << "Not less that equal to--";
+	}
+
+
+	if (leftHalfS1 != rightHalfS2){
+		cout << "yes not equal to!!";
+	}
+	else{
+		cout << "No not equal to--";
 	}
 
 	if(Meet(s1,s3)){
@@ -60,54 +84,54 @@ int main()
 		cout << "They don't meet -----";
 	}
 
-	if (p1 < p2)
-	{
-		cout << "The point" << p1 << " is less than the point " << p2 << endl;
-	}
+	// if (p1 < p2)
+	// {
+	// 	cout << "The point" << p1 << " is less than the point " << p2 << endl;
+	// }
 
-	if (p4 > p1)
-	{
-		cout << "The point" << p4 << " is greater than the point " << p2 << endl;
-	}
+	// if (p4 > p1)
+	// {
+	// 	cout << "The point" << p4 << " is greater than the point " << p2 << endl;
+	// }
 
-	if (p2 == p3)
-	{
-		cout << "The point" << p2 << " is equal to the point " << p3 << endl;
-	}
+	// if (p2 == p3)
+	// {
+	// 	cout << "The point" << p2 << " is equal to the point " << p3 << endl;
+	// }
 
-	if (p3 <= p5)
-	{
-		cout << "The point" << p3 << " is less than or equal to the point " << p5 << endl;
-	}
-	if (p3 >= p5)
-	{
-		cout << "The point" << p3 << " is greater than or equal to the point " << p5 << endl;
-	}
-	else
-	{
-		cout << "The point" << p3 << " is less than the point " << p5 << endl;
-	}
+	// if (p3 <= p5)
+	// {
+	// 	cout << "The point" << p3 << " is less than or equal to the point " << p5 << endl;
+	// }
+	// if (p3 >= p5)
+	// {
+	// 	cout << "The point" << p3 << " is greater than or equal to the point " << p5 << endl;
+	// }
+	// else
+	// {
+	// 	cout << "The point" << p3 << " is less than the point " << p5 << endl;
+	// }
 	
-	//Checking collinearity and meets the left end point with s1 and s2
-	if ( SegmentIsCollinearAndMeetsLeftEndpoint(s1,s2) )
-		cout << "yeah they're collinear and meet left endpoint."<<endl;
-	else
-		cout << "No either not collinear or does not meet left endpoint." << endl;
+	// //Checking collinearity and meets the left end point with s1 and s2
+	// if ( SegmentIsCollinearAndMeetsLeftEndpoint(s1,s2) )
+	// 	cout << "yeah they're collinear and meet left endpoint."<<endl;
+	// else
+	// 	cout << "No either not collinear or does not meet left endpoint." << endl;
 	
-	if (SegmentIsCollinearAndMeetsRightEndpoint(s1, s2))
-		cout << "yeah they're collinear and meet right endpoint." << endl;
-	else
-		cout << "No either not collinear or does not meet right endpoint." << endl;
+	// if (SegmentIsCollinearAndMeetsRightEndpoint(s1, s2))
+	// 	cout << "yeah they're collinear and meet right endpoint." << endl;
+	// else
+	// 	cout << "No either not collinear or does not meet right endpoint." << endl;
 
-	if (SegmentIsCollinearAndMeetsBothEndpoint(s1, s2))
-		cout << "yeah they're collinear and meet both endpoints." << endl;
-	else
-		cout << "No either not collinear or does not meet both endpoints." << endl;
+	// if (SegmentIsCollinearAndMeetsBothEndpoint(s1, s2))
+	// 	cout << "yeah they're collinear and meet both endpoints." << endl;
+	// else
+	// 	cout << "No either not collinear or does not meet both endpoints." << endl;
 
-	if (SegmentIsParallel(s1, s2))
-		cout << "the segments are parallel";
-	else
-		cout << "not parallel";
+	// if (SegmentIsParallel(s1, s2))
+	// 	cout << "the segments are parallel";
+	// else
+	// 	cout << "not parallel";
 	
 	getchar();
 	return 0;

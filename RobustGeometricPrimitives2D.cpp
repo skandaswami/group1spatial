@@ -377,7 +377,59 @@ bool HalfSeg2D::operator > (const HalfSeg2D& operand)
 
 bool HalfSeg2D::operator <= (const HalfSeg2D& operand)
 {
-	return true;
+	Seg2D seg1 = this->seg;
+	Seg2D seg2 = operand.seg;
+	Poi2D dominatingPointOfSeg1;
+	Poi2D dominatingPointOfSeg2;
+	Poi2D nonDominatingPointOfSeg1;
+	Poi2D nonDominatingPointOfSeg2;
+
+	if(seg1 == seg2 && this->isLeft == operand.isLeft){
+		return true;
+	}else{
+		if (this->isLeft == true){
+			dominatingPointOfSeg1 = seg1.p1;
+			nonDominatingPointOfSeg1 = seg1.p2;
+		}
+		else
+		{
+			dominatingPointOfSeg1 = seg1.p2;
+			nonDominatingPointOfSeg1 = seg1.p1;
+		}
+
+		if (operand.isLeft == true){
+			dominatingPointOfSeg2 = seg2.p1;
+			nonDominatingPointOfSeg2 = seg2.p2;
+		}
+		else
+		{
+			dominatingPointOfSeg2 = seg2.p2;
+			nonDominatingPointOfSeg2 = seg2.p1;
+		}
+
+		std::cout << "dominatingPointOfSeg1" << dominatingPointOfSeg1;
+		std::cout << "dominatingPointOfSeg2" << dominatingPointOfSeg2;
+		std::cout << "nonDominatingPointOfSeg1" << nonDominatingPointOfSeg1;
+		std::cout << "nonDominatingPointOfSeg2" << nonDominatingPointOfSeg2;
+
+		if (dominatingPointOfSeg1 < dominatingPointOfSeg2
+			|| (dominatingPointOfSeg1 == dominatingPointOfSeg2 && (!this->isLeft && operand.isLeft))
+			|| (this->isLeft == operand.isLeft &&
+			(
+			(operand.isLeft == true && PointLiesAboveSegment(nonDominatingPointOfSeg2, seg1))
+			|| (operand.isLeft == false && PointLiesBelowSegment(nonDominatingPointOfSeg2, seg1))
+			)
+			)
+			|| (this->isLeft == operand.isLeft && SegmentIsCollinearAndMeetsLeftEndpoint(seg1, seg2) && SegmentIsLesserThanSegment(seg1, seg2))
+			){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+
 }
 
 bool HalfSeg2D::operator >= (const HalfSeg2D& operand)
@@ -387,12 +439,25 @@ bool HalfSeg2D::operator >= (const HalfSeg2D& operand)
 
 bool HalfSeg2D::operator == (const HalfSeg2D& operand)
 {
-	return true;
+	Seg2D seg1 = this->seg;
+	Seg2D seg2 = operand.seg;
+	if(seg1 == seg2 && this->isLeft == operand.isLeft){
+		return true;
+	}else{
+		return false;
+	}
+	
 }
 
 bool HalfSeg2D::operator != (const HalfSeg2D& operand)
 {
-	return true;
+	Seg2D seg1 = this->seg;
+	Seg2D seg2 = operand.seg;
+	if(seg1 != seg2 || this->isLeft != operand.isLeft){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 std::ostream&operator << (std::ostream& os, const HalfSeg2D& output)
@@ -695,7 +760,7 @@ Functions between segments
 bool SegmentLiesOnSegment(Seg2D& seg1, Seg2D& seg2)
 {
 	//Checking four cases here.
-	if ((PointLiesOnSegment(seg1.p1, seg2) && (PointLiesOnSegment(seg1.p2, seg2))) || (PointIsCollinearToSegment(seg1.p1, seg1)) && (PointLiesOnSegment(seg1.p2, seg2)) || (PointIsCollinearToSegment(seg1.p2, seg1)) && (PointLiesOnSegment(seg1.p1, seg2)) || (PointLiesOnSegment(seg2.p1, seg1) && (PointLiesOnSegment(seg2.p2, seg1))))
+	if ((PointLiesOnSegment(seg1.p1, seg2)&&(PointLiesOnSegment(seg1.p2, seg2))) || (PointIsCollinearToSegment(seg1.p1, seg1)) && (PointLiesOnSegment(seg1.p2, seg2)) || (PointIsCollinearToSegment(seg1.p2, seg1)) && (PointLiesOnSegment(seg1.p1, seg2)) || (PointLiesOnSegment(seg2.p1, seg1) && (PointLiesOnSegment(seg2.p2, seg1))))
 		return true;
 	else
 		return false;

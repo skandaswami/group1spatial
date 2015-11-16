@@ -19,25 +19,19 @@ int main()
 	cout << "Big Rational varaiable multiplication:" << a * b << endl;
 	cout << "Big Rational varaiable division:" << a / b << endl;
 
-
 	Poi2D p1(Number("1.0"), Number("2.0"));
-	Poi2D p2(Number("2.0"), Number("3.0"));
-	Poi2D p3(Number("2.0"), Number("3.0"));
-
-	Poi2D p4(Number("5.0"), Number("6.0"));
+	Poi2D p2(Number("2.0"), Number("2.0"));
+	Poi2D p3(Number("3.0"), Number("3.0"));
+	Poi2D p4(Number("5.0"), Number("3.0"));
 	Poi2D p5(Number("2.0"), Number("5.0"));
 	cout << "Point p1:" << p1 << endl;
 	cout << "Point p2:" << p2 << endl;
 	cout << "Point p3:" << p3 << endl;
 	cout << "Point p4:" << p4 << endl;
 	cout << "Point p5:" << p5 << endl;
-
-
-	Seg2D s1(p1, p5);
-	cout << "Seg2D is " << s1;
-
-	Seg2D s2(p2, p4);
-	cout << "Seg2D is " << s2;
+	
+	Seg2D s1(p1, p2);
+	Seg2D s2(p3, p4);
 
 
 	HalfSeg2D leftHalfS1(s1, true);
@@ -88,7 +82,6 @@ int main()
 	{
 		cout << "The point" << p3 << " is less than the point " << p5 << endl;
 	}
-
 	
 	//Checking collinearity and meets the left end point with s1 and s2
 	if ( SegmentIsCollinearAndMeetsLeftEndpoint(s1,s2) )
@@ -106,10 +99,16 @@ int main()
 	else
 		cout << "No either not collinear or does not meet both endpoints." << endl;
 
+	if (SegmentIsParallel(s1, s2))
+		cout << "the segments are parallel";
+	else
+		cout << "not parallel";
 	
 	getchar();
 	return 0;
 
+	
+	
 	/*unsigned int a = 4333234234234 * 22450000000000;
 	cout << UINT_MAX<< endl << a << endl;
 	return 0;*/

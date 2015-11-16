@@ -375,11 +375,6 @@ bool HalfSeg2D::operator < (const HalfSeg2D& operand)
                 dominatingPointOfSeg2 = seg2.p2;
                 nonDominatingPointOfSeg2 = seg2.p1;
         }
- 		
- 		std::cout<< "dominatingPointOfSeg1" << dominatingPointOfSeg1;
- 		std::cout << "dominatingPointOfSeg2" << dominatingPointOfSeg2;
- 		std::cout << "nonDominatingPointOfSeg1" << nonDominatingPointOfSeg1;
- 		std::cout << "nonDominatingPointOfSeg2" << nonDominatingPointOfSeg2;
  
         if(dominatingPointOfSeg1 < dominatingPointOfSeg2 
         	|| ( dominatingPointOfSeg1 == dominatingPointOfSeg2 && (!this->isLeft && operand.isLeft))
@@ -625,9 +620,7 @@ bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg)
        Poi2D b = seg.p2;
        Poi2D c = poi;
        Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-       std::cout<<"isAntiClockWise????"<<isAntiClockWise;
-       //return true;
-		if(isAntiClockWise >= Number("0")){
+		if(isAntiClockWise == Number("1")){
 			return true;
 		}else{
 			return false;
@@ -640,11 +633,8 @@ bool PointLiesBelowSegment(const Poi2D& poi, const Seg2D& seg)
        Poi2D a = seg.p1;
        Poi2D b = seg.p2;
        Poi2D c = poi;
-
        Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-       //std::cout<<"isAntiClockWise????"<<isAntiClockWise;
-       //return true;
-		if(isAntiClockWise <= Number("0")){
+		if(isAntiClockWise == Number("-1")){
 			return true;
 		}else{
 			return false;

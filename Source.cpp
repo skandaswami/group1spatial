@@ -39,7 +39,7 @@ int main()
 	Seg2D s2(p2, p5);
 	cout << "Seg2D is " << s2;
 
-
+	Seg2D s3(p3,p5);
 	HalfSeg2D leftHalfS1(s1, true);
 	HalfSeg2D rightHalfS1(s1, false);
 
@@ -66,6 +66,11 @@ int main()
 		cout << "No!!!!!!";
 	}
 
+	if(Meet(s1,s3)){
+		cout<<"They meet----- ";
+	}else{
+		cout << "They don't meet -----";
+	}
 
 	if (p1 < p2)
 	{

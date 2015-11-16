@@ -222,7 +222,7 @@ bool SegmentIsParallelAndLiesLeft(const Seg2D& seg, const Seg2D& seg1);
 bool SegmentIsParallelAndLiesRight(const Seg2D& seg, const Seg2D& seg1);
 bool Intersects(const Seg2D& seg, const Seg2D& seg1);
 Poi2D IntersectionPoint(const Seg2D& seg, const Seg2D& seg1);
-bool Meet(const Seg2D& seg, const Seg2D& seg1);
+bool Meet(Seg2D& seg, Seg2D& seg1);
 Poi2D MeetingPoint(const Seg2D& seg, const Seg2D& seg1);
 bool Touch(const Seg2D& seg, const Seg2D& seg1);
 Poi2D TouchingPoint(const Seg2D& seg, const Seg2D& seg1);

@@ -840,9 +840,14 @@ Poi2D IntersectionPoint(const Seg2D& seg1, const Seg2D& seg2)
         return Poi2D(Number("0.0"), Number("0.0"));
 }
 //Returns true if the two segments have a common point.
-bool Meet(const Seg2D& seg1, const Seg2D& seg2)
+bool Meet(Seg2D& seg1, Seg2D& seg2)
 {
-        return true;
+        if((seg1.p1 == seg2.p1) || (seg1.p1 == seg2.p2) || (seg1.p2 == seg2.p1) || (seg1.p2 == seg2.p2)){
+        	return true;
+        }else{
+        	return false;
+        }
+        
 }
 // Returns the first common point between the two segments.
 Poi2D MeetingPoint(const Seg2D& seg1, const Seg2D& seg2)

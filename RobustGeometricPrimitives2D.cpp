@@ -471,27 +471,53 @@ std::ostream&operator << (std::ostream& os, const HalfSeg2D& output)
 
 AttrHalfSeg2D::AttrHalfSeg2D() :HalfSeg2D()
 {
-
-}
-AttrHalfSeg2D::AttrHalfSeg2D(bool value, bool isLeft, Seg2D seg) : HalfSeg2D(seg, isLeft)
-{
+	this->isLeft = true;
+	this->seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
 	this->insideAbove = true;
+}
+AttrHalfSeg2D::AttrHalfSeg2D(bool insideabove, bool isLeft, Seg2D seg) : HalfSeg2D(seg, isLeft)
+{
+	this->insideAbove = insideabove; 
+	this->isLeft = isLeft;
+	this->seg = seg;
 }
 AttrHalfSeg2D::AttrHalfSeg2D(const AttrHalfSeg2D& obj)
 {
-
+	this->insideAbove = obj.insideAbove;
+	this->isLeft = obj.isLeft;
+	this->seg = obj.seg;
 }
 AttrHalfSeg2D::AttrHalfSeg2D(AttrHalfSeg2D&& obj)
 {
-
+	this->insideAbove = obj.insideAbove;
+	this->isLeft = obj.isLeft;
+	this->seg = obj.seg;
+	obj.insideAbove = true;
+	obj.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
+	obj.isLeft = true;
 }
 AttrHalfSeg2D AttrHalfSeg2D::operator = (const AttrHalfSeg2D& obj)
 {
-	return AttrHalfSeg2D(true, true, Seg2D());
+	if (this != &obj)
+	{
+		this->insideAbove = obj.insideAbove;
+		this->insideAbove = obj.isLeft;
+		this->seg = obj.seg;
+	}
+	return *this;
 }
 AttrHalfSeg2D AttrHalfSeg2D::operator = (AttrHalfSeg2D&& obj)
 {
-	return AttrHalfSeg2D(true, true, Seg2D());
+	if (this != &obj)
+	{
+		this->insideAbove = obj.insideAbove;
+		this->insideAbove = obj.isLeft;
+		this->seg = obj.seg;
+		obj.insideAbove = true;
+		obj.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
+		obj.isLeft = true;
+	}
+	return *this;
 }
 AttrHalfSeg2D::~AttrHalfSeg2D()
 {
@@ -594,12 +620,26 @@ std::istream&operator >> (std::istream& is, const Rect2D& input)
 
 /* Simple Polygon2D */
 
+struct SimplePolygon2DImplementation
+{
+	std::vector<Seg2D> initializationSegments;
+};
 SimplePolygon2D::SimplePolygon2D()
 {
 }
 SimplePolygon2D::SimplePolygon2D(std::vector<Seg2D> InitializationSegments)
 {
-
+	/*
+	std::vector<Seg2D>::size_type size = InitializationSegments.size();
+	SimplePolygon2DImplementation polygon;
+	
+	for (int i = 0; i < size; i++)
+	{
+		
+		
+	}
+	this->handle
+	*/
 }
 SimplePolygon2D::SimplePolygon2D(const SimplePolygon2D& obj)
 {
@@ -650,10 +690,7 @@ std::istream&operator >> (std::istream& is, const SimplePolygon2D& input)
 {
 }*/
 
-struct SimplePolygon2DImplementation
-{
-	std::vector<Seg2D> initializationSegments;
-};
+
 
 /* 
 Geometric Primitives

@@ -319,7 +319,7 @@ HalfSeg2D::~HalfSeg2D()
 }
 
 /* Overloading halfsegment's logical operators */
-bool HalfSeg2D::operator < (const HalfSeg2D& operand)
+bool HalfSeg2D::operator < ( const HalfSeg2D& operand)
 {
 	Seg2D seg1 = this->seg;
 	Seg2D seg2 = operand.seg;
@@ -370,7 +370,7 @@ bool HalfSeg2D::operator < (const HalfSeg2D& operand)
 
 }
 
-bool HalfSeg2D::operator > (const HalfSeg2D& operand)
+bool HalfSeg2D::operator > ( const HalfSeg2D& operand)
 {
 	return true;
 }
@@ -469,40 +469,40 @@ std::ostream&operator << (std::ostream& os, const HalfSeg2D& output)
 
 /*Atrributed Half Segment*/
 
-AttrHalfSeg2D::AttrHalfSeg2D() :HalfSeg2D()
+AttrHalfSeg2D::AttrHalfSeg2D() 
 {
-	this->isLeft = true;
-	this->seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
+	this->hseg.isLeft = true;
+	this->hseg.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
 	this->insideAbove = true;
 }
-AttrHalfSeg2D::AttrHalfSeg2D(bool insideabove, bool isLeft, Seg2D seg) : HalfSeg2D(seg, isLeft)
+AttrHalfSeg2D::AttrHalfSeg2D(bool insideabove, bool isLeft, Seg2D seg) 
 {
 	this->insideAbove = insideabove; 
-	this->isLeft = isLeft;
-	this->seg = seg;
+	this->hseg.isLeft = isLeft;
+	this->hseg.seg = seg;
 }
 AttrHalfSeg2D::AttrHalfSeg2D(const AttrHalfSeg2D& obj)
 {
 	this->insideAbove = obj.insideAbove;
-	this->isLeft = obj.isLeft;
-	this->seg = obj.seg;
+	this->hseg.isLeft = obj.hseg.isLeft;
+	this->hseg.seg = obj.hseg.seg;
 }
 AttrHalfSeg2D::AttrHalfSeg2D(AttrHalfSeg2D&& obj)
 {
 	this->insideAbove = obj.insideAbove;
-	this->isLeft = obj.isLeft;
-	this->seg = obj.seg;
+	this->hseg.isLeft = obj.hseg.isLeft;
+	this->hseg.seg = obj.hseg.seg;
 	obj.insideAbove = true;
-	obj.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
-	obj.isLeft = true;
+	obj.hseg.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
+	obj.hseg.isLeft = true;
 }
 AttrHalfSeg2D AttrHalfSeg2D::operator = (const AttrHalfSeg2D& obj)
 {
 	if (this != &obj)
 	{
 		this->insideAbove = obj.insideAbove;
-		this->insideAbove = obj.isLeft;
-		this->seg = obj.seg;
+		this->hseg.isLeft = obj.hseg.isLeft;
+		this->hseg.seg = obj.hseg.seg;
 	}
 	return *this;
 }
@@ -511,11 +511,12 @@ AttrHalfSeg2D AttrHalfSeg2D::operator = (AttrHalfSeg2D&& obj)
 	if (this != &obj)
 	{
 		this->insideAbove = obj.insideAbove;
-		this->insideAbove = obj.isLeft;
-		this->seg = obj.seg;
+		this->hseg.isLeft = obj.hseg.isLeft;
+		this->hseg.seg = obj.hseg.seg;
+		
 		obj.insideAbove = true;
-		obj.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
-		obj.isLeft = true;
+		obj.hseg.seg = Seg2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("1.0"), Number("1.0")));
+		obj.hseg.isLeft = true;
 	}
 	return *this;
 }
@@ -527,32 +528,63 @@ AttrHalfSeg2D::~AttrHalfSeg2D()
 /* Overloading the logical operators of  Attributed halfsegment.*/
 bool AttrHalfSeg2D::operator < (const AttrHalfSeg2D& operand)
 {
-	return true;
+	if (this->hseg < operand.hseg)
+		return true;
+	else if (this->hseg == operand.hseg && (this->insideAbove == false && operand.insideAbove == true))
+		return true;
+	else
+		return false;		
 }
 
 bool AttrHalfSeg2D::operator > (const AttrHalfSeg2D& operand)
 {
-	return true;
+
+	if (this->hseg > operand.hseg)
+		return true;
+	else if (this->hseg == operand.hseg && (this->insideAbove == true && operand.insideAbove == false))
+		return true;
+	else
+		return false;
+}
+bool AttrHalfSeg2D::operator == (const AttrHalfSeg2D& operand)
+{
+	if (this->hseg == operand.hseg && this->insideAbove == operand.insideAbove)
+		return true;
+	else
+		return false;
 }
 
 bool AttrHalfSeg2D::operator <= (const AttrHalfSeg2D& operand)
 {
-	return true;
+
+	if (this->hseg < operand.hseg)
+		return true;
+	else if (this->hseg == operand.hseg && (this->insideAbove == false && operand.insideAbove == true))
+		return true;
+	else if (this->hseg == operand.hseg && this->insideAbove == operand.insideAbove)
+		return true;
+	else
+		return false;
 }
 
 bool AttrHalfSeg2D::operator >= (const AttrHalfSeg2D& operand)
 {
-	return true;
-}
-
-bool AttrHalfSeg2D::operator == (const AttrHalfSeg2D& operand)
-{
-	return true;
+	if (this->hseg > operand.hseg)
+		return true;
+	else if (this->hseg == operand.hseg && (this->insideAbove == true && operand.insideAbove == false))
+		return true;
+	else if (this->hseg == operand.hseg && this->insideAbove == operand.insideAbove)
+		return true;
+	else
+		return true;
 }
 
 bool AttrHalfSeg2D::operator != (const AttrHalfSeg2D& operand)
 {
-	return true;
+	if (this->hseg != operand.hseg || this->insideAbove != operand.insideAbove)
+		return true;
+	else
+		return false;
 }
 
 /*Minimum Bounding Rectangle*/
@@ -706,6 +738,28 @@ bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg)
 		return true;
 	else
 		return false;
+}
+bool PointLiesOnSegmentAndNotEndpoints(Poi2D& poi, Seg2D& seg)
+{
+	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
+	Number segyintercept = (seg.p1.y) - ((segslope)*seg.p1.x);
+
+	if ((poi.y == ((segslope*poi.x) + segyintercept)) && ((poi != seg.p1) && (poi != seg.p2)))
+		return true;
+	else
+		return false;
+}
+//Returns the point that lies on the segment
+Poi2D getPointLiesOnSegmentAndNotEndpoints(Poi2D& poi1, Poi2D& poi2, Seg2D& seg)
+{
+	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
+	Number segyintercept = (seg.p1.y) - ((segslope)*seg.p1.x);
+		
+	if (PointLiesOnSegmentAndNotEndpoints(poi1,seg)) 
+		return poi1;
+	else if (PointLiesOnSegmentAndNotEndpoints(poi2,seg))
+		return poi2;
+	
 }
 
 // Returns true if poi PointLies above the segment.
@@ -1073,15 +1127,22 @@ Poi2D MidPoint(Seg2D& seg1)
 	return Poi2D(xcord, ycord);
 }
 
-//Returns true if a segment touches the other segment.
-bool Touch(const Seg2D& seg1, const Seg2D& seg2)
+//Returns true if a segment touches the other segment at any point other than its endpoints.
+bool Touch(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if ((!SegmentIsCollinear(seg1, seg2)) && (PointLiesOnSegmentAndNotEndpoints(seg1.p1, seg2) || PointLiesOnSegmentAndNotEndpoints(seg1.p2, seg2)))
+		return true;
+	else
+		return false;
 }
-// Returns the point where the segment touches another segment.
-Poi2D TouchingPoint(const Seg2D& seg1, const Seg2D& seg2)
+// Returns the point where the segment touches another segment. Use this function only after confirming that two segments touch.
+Poi2D TouchingPoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return Poi2D(Number("0.0"), Number("0.0"));
+	if (Touch(seg1, seg2))
+	{
+		return getPointLiesOnSegmentAndNotEndpoints(seg1.p1,seg1.p2, seg2);
+	}
+	
 }
 
 

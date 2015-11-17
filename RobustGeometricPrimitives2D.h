@@ -105,10 +105,11 @@ public:
 *Attributed Half Segment Class
 */
 struct AttHalfSegVariable;
-class AttrHalfSeg2D :public HalfSeg2D
+class AttrHalfSeg2D 
 {
 public:
 	/*Member variables */
+	HalfSeg2D hseg;
 	bool insideAbove;
 	/*Member Functions */
 	AttrHalfSeg2D();
@@ -189,6 +190,8 @@ private:
 */
 
 bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg);
+Poi2D getPointLiesOnSegmentAndNotEndpoints(Poi2D& poi, Seg2D& seg);
+bool PointLiesOnSegmentAndNotEndpoints(Poi2D& poi, Seg2D& seg);
 bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg);
 bool PointLiesBelowSegment(Poi2D& poi, Seg2D& seg);
 bool PointLiesAboveOrOnSegment(Poi2D& poi,Seg2D& seg);

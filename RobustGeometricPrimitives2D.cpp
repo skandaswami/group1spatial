@@ -532,28 +532,46 @@ bool AttrHalfSeg2D::operator != (const AttrHalfSeg2D& operand)
 /*Minimum Bounding Rectangle*/
 Rect2D::Rect2D()
 {
-
+	this->topLeft = Poi2D(Number("0.0"), Number("1.0"));
+	this->bottomRight = Poi2D(Number("1.0"), Number("0.0"));
 }
 Rect2D::Rect2D(Poi2D p1, Poi2D p2)
 {
-
+	this->topLeft = p1;
+	this->bottomRight = p2;
 }
 
 Rect2D::Rect2D(const Rect2D& obj)
 {
-
+	this->topLeft = obj.topLeft;
+	this->bottomRight = obj.bottomRight;
 }
 Rect2D::Rect2D(Rect2D&& obj)
 {
-
+	this->topLeft = obj.topLeft;
+	this->bottomRight = obj.bottomRight;
+	obj.topLeft = Poi2D(Number("0.0"), Number("1.0"));  
+	obj.bottomRight = Poi2D(Number("1.0"), Number("0.0"));
 }
 Rect2D Rect2D::operator = (const Rect2D& obj)
 {
-	return Rect2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("0.0")));
+	if (this != &obj)
+	{
+		this->topLeft = obj.topLeft;
+		this->bottomRight = obj.bottomRight;
+	}
+	return *this;
 }
 Rect2D Rect2D::operator = (Rect2D&& obj)
 {
-	return Rect2D(Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("0.0")));
+	if (this != &obj)
+	{
+		this->topLeft = obj.topLeft;
+		this->bottomRight = obj.bottomRight;
+		obj.topLeft = Poi2D(Number("0.0"), Number("1.0"));
+		obj.bottomRight = Poi2D(Number("1.0"), Number("0.0"));
+	}
+	return *this;
 }
 Rect2D::~Rect2D()
 {
@@ -569,7 +587,7 @@ std::ostream&operator << (std::ostream& os, const Rect2D& output)
 
 std::istream&operator >> (std::istream& is, const Rect2D& input) 
 {
-	std::cout << "input topLeft and bottomRight";
+	std::cout << "Enter the topLeft and bottomRight:";
 	is >> input.topLeft >> input.bottomRight;;
 	return is;
 }
@@ -656,48 +674,45 @@ bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg)
 // Returns true if poi PointLies above the segment.
 bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg)
 {
-	Poi2D a = seg.p1;
-	Poi2D b = seg.p2;
-	Poi2D c = poi;
-	Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-	std::cout << "isAntiClockWise????" << isAntiClockWise;
-	//return true;
-	if (isAntiClockWise >= Number("0")){
+	Number isAntiClockWise = (seg.p2.x - seg.p1.x) * (poi.y - seg.p1.y) - (poi.x - seg.p1.x) * (seg.p2.y - seg.p1.y);
+	
+	if (isAntiClockWise >= Number("0"))
 		return true;
-	}
-	else{
-		return false;
-	}
+	
+	else
+		return false;	
 }
 
 // Returns true if poi PointLies below the segment.
 bool PointLiesBelowSegment(Poi2D& poi, Seg2D& seg)
 {
-	Poi2D a = seg.p1;
-	Poi2D b = seg.p2;
-	Poi2D c = poi;
-
-	Number isAntiClockWise = (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
-	//std::cout<<"isAntiClockWise????"<<isAntiClockWise;
-	//return true;
-	if (isAntiClockWise <= Number("0")){
+	Number isAntiClockWise = (seg.p2.x - seg.p1.x) * (poi.y - seg.p1.y) - (poi.x - seg.p1.x) * (seg.p2.y - seg.p1.y);
+	
+	if (isAntiClockWise <= Number("0"))
 		return true;
-	}
-	else{
-		return false;
-	}
+	
+	else
+		return false;	
 }
 
 // Returns true if poi PointLies on or above the segment.
-bool PointLiesAboveOrOnSegment(const Poi2D& poi, const Seg2D& seg)
+bool PointLiesAboveOrOnSegment(Poi2D& poi, Seg2D& seg)
 {
-	return true;
+	if (PointLiesAboveSegment(poi, seg) || PointLiesOnSegment(poi, seg))
+		return true;
+	else
+		return false;
 }
 
 // Returns true if poi PointLies on or below the segment.
-bool PointLiesBelowOrOnSegment(const Poi2D& poi, const Seg2D& seg)
+bool PointLiesBelowOrOnSegment(Poi2D& poi, Seg2D& seg)
 {
-	return true;
+	
+	if ( PointLiesBelowSegment(poi,seg) || PointLiesOnSegment(poi,seg) )
+		return true;
+	else
+		return false;
+
 }
 
 // Returns true if poi PointLies on the left end point of the segment.
@@ -769,25 +784,37 @@ bool SegmentLiesOnSegment(Seg2D& seg1, Seg2D& seg2)
 // Returns true if seg1 SegmentLies above seg2.
 bool SegmentLiesAboveSegment(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (PointLiesAboveSegment(seg1.p1, seg2) && PointLiesAboveSegment(seg1.p2, seg2))
+		return true;
+	else
+		return false;
 }
 
 // Returns true if seg1 SegmentLies below seg2.
-bool SegmentLiesBelowSegment(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentLiesBelowSegment(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (PointLiesBelowSegment(seg1.p1, seg2) && PointLiesBelowSegment(seg1.p2, seg2))
+		return true;
+	else
+		return false;
 }
 
 // Returns true if seg1 SegmentLies to the left of seg2.
-bool SegmentLiesLeftOFSegment(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentLiesLeftOFSegment(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (seg1.p1.x < seg2.p1.x)
+		return true;
+	else
+		return false;
 }
 
 // Returns true if seg1 SegmentLies to the right of seg2.
-bool SegmentLiesRightOfSegment(const Seg2D& seg1, const Seg2D& seg2)
+bool SegmentLiesRightOfSegment(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (seg1.p2.x > seg2.p2.x)
+		return true;
+	else
+		return false;
 }
 
 // Returns true if the segment is collinear.
@@ -807,13 +834,19 @@ bool SegmentIsCollinear(Seg2D& seg1, Seg2D& seg2)
 // Returns true if seg1 SegmentLies to the left and is collinear to seg2.
 bool SegmentLiesLeftOFSegmentAndIsCollinear(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentLiesLeftOFSegment(seg1, seg2) && SegmentIsCollinear(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 
 // Returns true if seg1 SegmentLies to the right and is collinear to seg2.
 bool SegmentLiesRightOfSegmentAndIsCollinear(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentLiesRightOfSegment(seg1, seg2) && SegmentIsCollinear(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 
 // Returns true if the segments are collinear and meets only at the left endpoint of seg1.
@@ -876,49 +909,133 @@ bool SegmentIsParallel(Seg2D& seg1, Seg2D& seg2)
 //Returns true if the segments are parallel and seg1 lies above seg2.
 bool SegmentIsParallelAndAbove( Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentIsParallel(seg1, seg2) && SegmentLiesAboveSegment(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 //Returns true if the segments are parallel and seg1 lies below seg2
 bool SegmentIsParallelAndBelow(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentIsParallel(seg1, seg2) && SegmentLiesBelowSegment(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 //Returns true if the segments are parallel and seg1 lies to left of seg2.
 bool SegmentIsParallelAndLiesLeft(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentIsParallel(seg1, seg2) && SegmentLiesLeftOFSegment(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 //Returns true if the segments are parallel and seg1 lies to the right of seg2.
 bool SegmentIsParallelAndLiesRight(Seg2D& seg1, Seg2D& seg2)
 {
-	return true;
+	if (SegmentIsParallel(seg1, seg2) && SegmentLiesRightOfSegment(seg1, seg2))
+		return true;
+	else
+		return false;
 }
 //Returns true if seg1 intersects seg2.
-bool Intersects(const Seg2D& seg1, const Seg2D& seg2)
-{
-	return true;
+
+	int orientation(Poi2D p, Poi2D q, Poi2D r)
+	{
+		Number zero = Number("0");
+		Number val = (q.y - p.y) * (r.x - q.x) -
+			(q.x - p.x) * (r.y - q.y);
+
+		if (val == zero) return true;  // colinear
+
+		return (val > zero) ? 1 : 2; // clock or counterclock wise
+	}
+
+	// The main function that returns true if line segment 'p1q1'
+	// and 'p2q2' intersect.
+	bool Intersects(Seg2D& seg1, Seg2D& seg2)
+	{
+		// Find the four orientations needed for general and special cases
+		int o1 = orientation(seg1.p1, seg1.p2, seg2.p1);
+		int o2 = orientation(seg1.p1, seg1.p2, seg2.p2);
+		int o3 = orientation(seg2.p1, seg2.p2, seg1.p1);
+		int o4 = orientation(seg2.p1, seg2.p2, seg1.p2);
+	
+	
+		if (o1 != o2 && o3 != o4)
+			return true;
+
+		if (PointLiesOnSegment(seg1.p1, seg2) || PointLiesOnSegment(seg1.p2, seg2) || PointLiesOnSegment(seg2.p1, seg1) || PointLiesOnSegment(seg2.p2, seg1))
+			return true;
+		// Special Cases
+	
+		if (o1 == 0 && PointLiesOnSegment(seg2.p1, seg1))
+			return true;
+
+		// seg1.p1, seg1.p2 and seg2.p1 are collinear and seg2.p2 lies on segment seg1
+		if (o2 == 0 && PointLiesOnSegment(seg2.p2, seg1))
+			return true;
+
+		// p2, q2 and p1 are collinear and p1 lies on segment p2q2
+		if (o3 == 0 && PointLiesOnSegment(seg1.p1, seg2) )
+			return true;
+
+
+		// p2, q2 and q1 are collinear and q1 lies on segment p2q2
+		 if (o4 == 0 && PointLiesOnSegment( seg1.p2, seg2) )
+			return true;
+
+		 return false;
+	
 }
-//Returns the point of intersection between seg1 and seg2.
-Poi2D IntersectionPoint(const Seg2D& seg1, const Seg2D& seg2)
+//Returns the first point of intersection between seg1 and seg2.
+Poi2D IntersectionPoint(Seg2D& seg1, Seg2D& seg2)
 {
-	return Poi2D(Number("0.0"), Number("0.0"));
+	Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
+	Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
+	Number seg1yintercept = (seg1.p1.y) - ((seg1slope)*seg1.p1.x);
+	Number seg2yintercept = (seg2.p1.y) - ((seg2slope)*seg2.p1.x);
+
+	Number intersectionxcoord = (seg2yintercept - seg1yintercept) / (seg1slope - seg2slope) ;
+	Number intersectionycoord = (seg2slope*intersectionxcoord) + seg2yintercept;
+	
+	return Poi2D(intersectionxcoord, intersectionycoord);
 }
-//Returns true if the two segments have a common point.
+//Returns true if the two segments have a common endpoint.
 bool Meet(Seg2D& seg1, Seg2D& seg2)
 {
-
-        if((seg1.p1 == seg2.p1) || (seg1.p1 == seg2.p2) || (seg1.p2 == seg2.p1) || (seg1.p2 == seg2.p2)){
-        	return true;
-        }else{
-        	return false;
-        }
-       
+	 if((seg1.p1 == seg2.p1) || (seg1.p1 == seg2.p2) || (seg1.p2 == seg2.p1) || (seg1.p2 == seg2.p2))
+        return true;
+        
+	else
+        return false; 
 }
-// Returns the first common point between the two segments.
-Poi2D MeetingPoint(const Seg2D& seg1, const Seg2D& seg2)
+// Returns the first common endpoint between the two segments.
+Poi2D MeetingPoint(Seg2D& seg1,Seg2D& seg2)
 {
-	return Poi2D(Number("0.0"), Number("0.0"));
+	if (seg1.p1 == seg2.p1 )
+		return Poi2D(seg1.p1);
+	
+	if (seg1.p1 == seg2.p2);
+		return Poi2D(seg1.p1);
+	
+	if (seg1.p2 == seg2.p1)  
+		return Poi2D(seg1.p2);
+
+	if (seg1.p2 == seg2.p2)
+		return Poi2D(seg1.p2);
 }
+
+//Returns the midpoint of a given segment.
+Poi2D MidPoint(Seg2D& seg1)
+{
+	Number two = Number("2");
+	Number xcord = (seg1.p2.x - seg1.p1.x) / two;
+	Number ycord = (seg1.p2.y - seg1.p1.y) / two;
+
+	return Poi2D(xcord, ycord);
+}
+
 //Returns true if a segment touches the other segment.
 bool Touch(const Seg2D& seg1, const Seg2D& seg2)
 {
@@ -929,11 +1046,7 @@ Poi2D TouchingPoint(const Seg2D& seg1, const Seg2D& seg2)
 {
 	return Poi2D(Number("0.0"), Number("0.0"));
 }
-//Returns the midpoint of a given segment.
-Poi2D MidPoint(const Seg2D& seg1)
-{
-	return Poi2D(Number("0.0"), Number("0.0"));
-}
+
 
 //Determines whether a point is located on theboundary of a simple polygon.
 bool simplePointInsideSimplePolygon(const Poi2D& poi, const SimplePolygon2D& simplepolygon)

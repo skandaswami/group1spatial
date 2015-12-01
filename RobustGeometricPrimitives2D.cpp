@@ -1,4 +1,8 @@
 #include "RobustGeometricPrimitives2D.h"
+#include <string>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 
 /*Poi2D*/
 
@@ -652,26 +656,16 @@ std::istream&operator >> (std::istream& is, const Rect2D& input)
 
 /* Simple Polygon2D */
 
-struct SimplePolygon2DImplementation
-{
-	std::vector<Seg2D> initializationSegments;
-};
 SimplePolygon2D::SimplePolygon2D()
 {
 }
-SimplePolygon2D::SimplePolygon2D(std::vector<Seg2D> InitializationSegments)
+SimplePolygon2D::SimplePolygon2D(std::vector<Poi2D> vertices)
 {
-	/*
-	std::vector<Seg2D>::size_type size = InitializationSegments.size();
-	SimplePolygon2DImplementation polygon;
-	
-	for (int i = 0; i < size; i++)
+	int polygon_size = vertices.size();
+	for (int i = 0; i < polygon_size; i++)
 	{
-		
-		
+		this->vertices.push_back(vertices[i]);
 	}
-	this->handle
-	*/
 }
 SimplePolygon2D::SimplePolygon2D(const SimplePolygon2D& obj)
 {
@@ -757,7 +751,7 @@ Poi2D getPointLiesOnSegmentAndNotEndpoints(Poi2D& poi1, Poi2D& poi2, Seg2D& seg)
 		
 	if (PointLiesOnSegmentAndNotEndpoints(poi1,seg)) 
 		return poi1;
-	else if (PointLiesOnSegmentAndNotEndpoints(poi2,seg))
+	if (PointLiesOnSegmentAndNotEndpoints(poi2,seg))
 		return poi2;
 	
 }
@@ -1029,6 +1023,13 @@ bool SegmentIsParallelAndLiesRight(Seg2D& seg1, Seg2D& seg2)
 	else
 		return false;
 }
+int poly_orientation(Poi2D& p1, Poi2D& p2, Poi2D& q1) {
+	Number val = (p2.y - p1.y) * (q1.x - p2.x) - (q1.y - p2.y) * (p2.x - p1.x);
+	if (val == Number("0"))
+		return 0;
+	else
+		return (val < Number(0)) ? -1 : 1;
+}
 //Returns true if seg1 intersects seg2.
 
 	int orientation(Poi2D p, Poi2D q, Poi2D r)
@@ -1147,8 +1148,49 @@ Poi2D TouchingPoint(Seg2D& seg1, Seg2D& seg2)
 
 
 //Determines whether a point is located on theboundary of a simple polygon.
-bool simplePointInsideSimplePolygon(const Poi2D& poi, const SimplePolygon2D& simplepolygon)
+bool simplePointInsideSimplePolygon(Poi2D& poi,SimplePolygon2D& polygon)
 {
+		/*const Number INF = "10000000";
+	if (polygon.vertices.size() < 3)
+		return false; // Flawed polygon
+
+	Poi2D PtoInfinity = { INF, poi.y };
+
+	int intersectionsCount = 0;
+	int i = 0, j = i + 1;
+	do {
+		Seg2D seg1(poi, PtoInfinity);
+		Seg2D seg2(polygon.vertices[i], polygon.vertices[j]);
+		if (Intersects(seg1, seg2) == true) {
+
+			++intersectionsCount;
+			Poi2D polyi = polygon.vertices[i];
+			Poi2D polyj = polygon.vertices[j];
+			Seg2D seg(polyi, polyj);
+			if (poly_orientation(polyi,polyj,poi) == 0) { // Collinear
+				if (PointLiesOnSegment(poi,seg) == true)
+					return true;
+				else {
+					
+					int k = (((i - 1) >= 0) ? // Negative wraparound
+						(i - 1) % static_cast<int>(polygon.vertices.size()) :
+						static_cast<int>(polygon.vertices.size()) + (i - 1));
+					int w = ((j + 1) % polygon.vertices.size());
+
+					if ((polygon.vertices[k].y <= polygon.vertices[i].y && polygon.vertices[w].y <= polygon.vertices[j].y)
+						|| (polygon.vertices[k].y >= polygon.vertices[i].y && polygon.vertices[w].y >= polygon.vertices[j].y))
+						--intersectionsCount;
+				}
+			}
+		}
+
+		i = (++i % polygon.vertices.size());
+		j = (++j % polygon.vertices.size());
+
+	} while (i != 0);
+
+	return (intersectionsCount % 2 != 0);
+	*/
 	return true;
 }
 //Determines whether the point is located in the interior or on the boundary of the simple polygon 

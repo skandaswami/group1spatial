@@ -160,8 +160,10 @@ public:
 class SimplePolygon2D
 {
 public:
+	std::vector<Poi2D> vertices;
+
 	SimplePolygon2D();
-	SimplePolygon2D(std::vector<Seg2D> initializationSegments);
+	SimplePolygon2D(std::vector<Poi2D> vertices);
 	SimplePolygon2D(const SimplePolygon2D& obj);
 	SimplePolygon2D(SimplePolygon2D&& obj);
 	~SimplePolygon2D();
@@ -178,9 +180,6 @@ public:
 	friend std::ostream&operator << (std::ostream& os, const SimplePolygon2D& output);
 	friend std::istream&operator >> (std::istream& is, const SimplePolygon2D& input);
 
-private:
-	struct SimplePolygon2DImplementation;
-	SimplePolygon2DImplementation *handle;
 };
 
 
@@ -234,7 +233,7 @@ Poi2D TouchingPoint(Seg2D& seg, Seg2D& seg1);
 Poi2D MidPoint(Seg2D& seg1);
 
 //Determines whether a point is located on theboundary of a simple polygon.
-bool simplePointInsideSimplePolygon(const Poi2D& poi, const SimplePolygon2D& simplepolygon);
+bool simplePointInsideSimplePolygon(Poi2D& poi, SimplePolygon2D& simplepolygon);
 //Determines whether the point is located in the interior or on the boundary of the simple polygon 
 bool simplePointOnBoundaryOfSimplePoly(const Poi2D& poi, const SimplePolygon2D& simplepolygon);
 //Determines whether the segment is located in the interior of the simple polygon 

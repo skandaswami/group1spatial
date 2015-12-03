@@ -709,13 +709,17 @@ bool SimplePolygon2D::operator != (const SimplePolygon2D& operand)
 	return true;
 }
 
-/*std::ostream&operator << (std::ostream& os, const SimplePolygon2D& output)
+std::ostream&operator << (std::ostream& os, SimplePolygon2D& output)
 {
+	for (int i = 0; i < output.vertices.size(); i++)
+		std::cout << "Point:" << i << output.vertices[i];
+	return os;
 }
+/*
 std::istream&operator >> (std::istream& is, const SimplePolygon2D& input)
 {
-}*/
-
+}
+*/
 
 
 /* 
@@ -723,7 +727,7 @@ Geometric Primitives
 Functions between Segment and Point.
 */
 
-// Returns true if poi lies on the segment.
+//Returns true if poi lies on the segment.
 bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg)
 {
 	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
@@ -733,6 +737,7 @@ bool PointLiesOnSegment(Poi2D& poi, Seg2D& seg)
 	else
 		return false;
 }
+//Returns the point that lies on the segment and not on the endpoints.
 bool PointLiesOnSegmentAndNotEndpoints(Poi2D& poi, Seg2D& seg)
 {
 	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
@@ -763,7 +768,6 @@ bool PointLiesAboveSegment(Poi2D& poi, Seg2D& seg)
 	
 	if (isAntiClockWise >= Number("0"))
 		return true;
-	
 	else
 		return false;	
 }
@@ -779,8 +783,15 @@ bool PointLiesBelowSegment(Poi2D& poi, Seg2D& seg)
 	else
 		return false;	
 }
-
-// Returns true if poi PointLies on or above the segment.
+//Return true if both points passed to it are either to the left of the segment or to the right of the segment.
+bool PointLiesOnSameSideOfSegment(Poi2D& poi1,Poi2D& poi2, Seg2D& seg)
+{
+	if (PointLiesAboveSegment(poi1, seg) && PointLiesAboveSegment(poi2, seg))
+		return true;
+	else
+		return false;
+}
+//Returns true if poi PointLies on or above the segment.
 bool PointLiesAboveOrOnSegment(Poi2D& poi, Seg2D& seg)
 {
 	if (PointLiesAboveSegment(poi, seg) || PointLiesOnSegment(poi, seg))
@@ -797,7 +808,6 @@ bool PointLiesBelowOrOnSegment(Poi2D& poi, Seg2D& seg)
 		return true;
 	else
 		return false;
-
 }
 
 // Returns true if poi PointLies on the left end point of the segment.
@@ -1145,52 +1155,35 @@ Poi2D TouchingPoint(Seg2D& seg1, Seg2D& seg2)
 	}
 	
 }
+//Basic polygon in bouding box test.
+bool BasicPointInBoundingBox(Poi2D& poi,SimplePolygon2D& polygon)
+{
 
+	Number minx = polygon.vertices[0].x;
+	Number miny = polygon.vertices[0].y;
+	Number maxx = polygon.vertices[0].x;
+	Number maxy = polygon.vertices[0].y;
+	for (int i = 0; i < polygon.vertices.size(); i++)
+	{
+		if (polygon.vertices[i].x < minx)
+			minx = polygon.vertices[i].x;
+		if (polygon.vertices[i].x > maxx)
+			maxx = polygon.vertices[i].x;
+		if (polygon.vertices[i].y < miny)
+			miny = polygon.vertices[i].x;
+		if (polygon.vertices[i].y > maxy)
+			maxy = polygon.vertices[i].x;
+	}
+	if (poi.x < minx || poi.y < miny || poi.x > maxx  ||poi.y > maxy)
+		return false;
+	else
+		return true;
+}
 
 //Determines whether a point is located on theboundary of a simple polygon.
 bool simplePointInsideSimplePolygon(Poi2D& poi,SimplePolygon2D& polygon)
 {
-		/*const Number INF = "10000000";
-	if (polygon.vertices.size() < 3)
-		return false; // Flawed polygon
-
-	Poi2D PtoInfinity = { INF, poi.y };
-
-	int intersectionsCount = 0;
-	int i = 0, j = i + 1;
-	do {
-		Seg2D seg1(poi, PtoInfinity);
-		Seg2D seg2(polygon.vertices[i], polygon.vertices[j]);
-		if (Intersects(seg1, seg2) == true) {
-
-			++intersectionsCount;
-			Poi2D polyi = polygon.vertices[i];
-			Poi2D polyj = polygon.vertices[j];
-			Seg2D seg(polyi, polyj);
-			if (poly_orientation(polyi,polyj,poi) == 0) { // Collinear
-				if (PointLiesOnSegment(poi,seg) == true)
-					return true;
-				else {
-					
-					int k = (((i - 1) >= 0) ? // Negative wraparound
-						(i - 1) % static_cast<int>(polygon.vertices.size()) :
-						static_cast<int>(polygon.vertices.size()) + (i - 1));
-					int w = ((j + 1) % polygon.vertices.size());
-
-					if ((polygon.vertices[k].y <= polygon.vertices[i].y && polygon.vertices[w].y <= polygon.vertices[j].y)
-						|| (polygon.vertices[k].y >= polygon.vertices[i].y && polygon.vertices[w].y >= polygon.vertices[j].y))
-						--intersectionsCount;
-				}
-			}
-		}
-
-		i = (++i % polygon.vertices.size());
-		j = (++j % polygon.vertices.size());
-
-	} while (i != 0);
-
-	return (intersectionsCount % 2 != 0);
-	*/
+		
 	return true;
 }
 //Determines whether the point is located in the interior or on the boundary of the simple polygon 
@@ -1215,17 +1208,42 @@ bool segOnSimplePolygon(const Seg2D& seg, const SimplePolygon2D& simplepolygon)
 }
 
 //Returns a minimum bounding rectangle for a segment
-Rect2D computeRect2D(const Seg2D& seg1)
+/*Rect2D computeRect2D(const Seg2D& seg1)
 {
 	return Rect2D();
 }
+*/
 //Returns a minimum bounding rectangle for a polygon
-Rect2D computeRect2D(const SimplePolygon2D& simplepolygon)
+Rect2D computeRect2D(SimplePolygon2D& polygon)
 {
-	return Rect2D();
+	Number minx = polygon.vertices[0].x; 
+	Number miny = polygon.vertices[0].y;
+	Number maxx = polygon.vertices[0].x;
+	Number maxy = polygon.vertices[0].y;
+	//std::cout << "initial topleft and bottomright:" << topLeft << " and" << bottomRight<<"\n";
+	//std::cout << "vertices size:" << polygon.vertices.size();
+	for (int i = 0; i < polygon.vertices.size(); i++)
+	{
+		if (polygon.vertices[i].x < minx)
+			minx = polygon.vertices[i].x;
+		if (polygon.vertices[i].x > maxx)
+			maxx = polygon.vertices[i].x;
+		if (polygon.vertices[i].y < miny)
+			miny = polygon.vertices[i].x;
+		if (polygon.vertices[i].y > maxy)
+			maxy = polygon.vertices[i].x;
+	}
+	Poi2D topLeft = Poi2D(minx,maxy);
+	Poi2D bottomRight = Poi2D(maxx,miny);
+	Rect2D rect = Rect2D(topLeft, bottomRight);
+	return rect;
 }
+
 //Returns whether Rect2D computation is possible
-bool isRect2DPossible();
+bool isRect2DPossible()
+{
+	return true;
+}
 bool SegmentIsLesserThanSegment(Seg2D& seg1, Seg2D& seg2)
 {
 	Poi2D p1 = seg1.p1;

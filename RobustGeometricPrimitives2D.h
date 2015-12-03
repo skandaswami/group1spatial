@@ -177,8 +177,8 @@ public:
 	bool operator != (const SimplePolygon2D& operand);
 
 	/* I/O Operators*/
-	friend std::ostream&operator << (std::ostream& os, const SimplePolygon2D& output);
-	friend std::istream&operator >> (std::istream& is, const SimplePolygon2D& input);
+	friend std::ostream&operator << (std::ostream& os,  SimplePolygon2D& output);
+	friend std::istream&operator >> (std::istream& is,  SimplePolygon2D& input);
 
 };
 
@@ -231,6 +231,7 @@ Poi2D MeetingPoint(Seg2D& seg, Seg2D& seg1);
 bool Touch(Seg2D& seg, Seg2D& seg1);
 Poi2D TouchingPoint(Seg2D& seg, Seg2D& seg1);
 Poi2D MidPoint(Seg2D& seg1);
+bool BasicPointInBoundingBox(Poi2D& poi, SimplePolygon2D& polygon);
 
 //Determines whether a point is located on theboundary of a simple polygon.
 bool simplePointInsideSimplePolygon(Poi2D& poi, SimplePolygon2D& simplepolygon);
@@ -246,7 +247,7 @@ bool segOnSimplePolygon(const Seg2D& seg, const SimplePolygon2D& simplepolygon);
 //Returns a minimum bounding rectangle for a segment
 Rect2D computeRect2D(const Seg2D& seg);
 //Returns a minimum bounding rectangle for a polygon
-Rect2D computeRect2D(const SimplePolygon2D& simplepolygon);
+Rect2D computeRect2D(SimplePolygon2D& simplepolygon);
 //Returns whether Rect2D computation is possible
 bool isRect2DPossible();
 

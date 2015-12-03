@@ -96,9 +96,14 @@ int main()
 	vector<Poi2D> points2 = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("3.0"), Number("3.0")) };
 	SimplePolygon2D testpolygon(points);
 	
-	Poi2D p9 = Poi2D(Number("12.0"), Number("12.0"));
-	cout <<"polygon inside or not test:"<<simplePointInsideSimplePolygon(p9, testpolygon);
-
+	Poi2D p9 = Poi2D(Number("2.0"), Number("2.0"));
+	Poi2D p10 = Poi2D(Number("11.0"), Number("12.0"));
+	//cout <<"polygon inside or not test:"<<simplePointInsideSimplePolygon(p9, testpolygon);
+	cout << testpolygon;
+	Rect2D rect = Rect2D(p9, p10);
+	//cout << rect;
+	//cout <<"Rect2d:"<<computeRect2D(testpolygon);
+	cout << "true or false:" << BasicPointInBoundingBox(p9, testpolygon);
 	// if (p1 < p2)
 	// {
 	// 	cout << "The point" << p1 << " is less than the point " << p2 << endl;

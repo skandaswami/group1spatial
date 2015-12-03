@@ -96,7 +96,8 @@ int main()
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("2.0"), Number("4.0")), Poi2D(Number("2.0"), Number("2.0")), Poi2D(Number("4.0"), Number("2.0")), Poi2D(Number("4.0"), Number("0.0"))};
 	
-	vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
+	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
+	vector<Poi2D> points = { Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0")),Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0"))};
 	
 
 	vector<Poi2D> points2 = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("3.0"), Number("3.0")) };

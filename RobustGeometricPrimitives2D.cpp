@@ -791,10 +791,14 @@ bool PointLiesOnSegmentAndNotEndpoints(Poi2D& q, Seg2D& seg)
 		minp1p2y=seg.p1.y;
 		maxp1p2y=seg.p2.y;
 	}
-	if (minp1p2x <= q.x && q.x <= maxp1p2x && minp1p2y <= q.y && q.y <= maxp1p2y && (q != seg.p1 && q != seg.p2))
-    return true;
-  else
-    return false;
+	std::cout<< "minp1p2x" << minp1p2x << "maxp1p2x" << maxp1p2x << "minp1p2y" <<minp1p2y << "maxp1p2y" <<maxp1p2y;
+	if (minp1p2x <= q.x && q.x <= maxp1p2x && minp1p2y <= q.y && q.y <= maxp1p2y && q != seg.p1 && q != seg.p2){
+		std::cout<<"yes"<<std::endl;
+		return true;
+	}else{
+		std::cout<<"no"<<std::endl;
+		return false;
+	}
 }
 //Returns the point that lies on the segment
 Poi2D getPointLiesOnSegmentAndNotEndpoints(Poi2D& poi1, Poi2D& poi2, Seg2D& seg)
@@ -1355,14 +1359,34 @@ bool simplePointInsideSimplePolygon(Poi2D& poi,SimplePolygon2D& polygon)
 				if(intersects){
 					bool isCollinear = PointIsCollinearToSegment(poi,segI);
 					std::cout << "isCollinear" << isCollinear << std::endl;
-					Poi2D pointOfIntersection = IntersectionPoint(segI,segC);
-					std::cout << "pointOfIntersection" << pointOfIntersection << std::endl;
-					if(pointOfIntersection == polygon.vertices[i] || pointOfIntersection == polygon.vertices[k]){
-						i++;
+					// Poi2D pointOfIntersection = IntersectionPoint(segI,segC);
+					// std::cout << "pointOfIntersection" << pointOfIntersection << std::endl;
+					// if(pointOfIntersection == polygon.vertices[i] || pointOfIntersection == polygon.vertices[k]){
+					// 	i++;
+					// 	pointCheck = true;
+					// 	std::cout << "pointCheck" << pointCheck << std::endl;
+					// 	if(pointOfIntersection == polygon.vertices[0]){
+					// 	forI = 1;
+					// 	}
+					// }
+
+
+					Poi2D pointOfIntersection;
+					//std::cout << "pointOfIntersection" << pointOfIntersection << std::endl;
+					if(PointLiesOnSegmentAndNotEndpoints(polygon.vertices[i],segC) || PointLiesOnSegmentAndNotEndpoints(polygon.vertices[k],segC)){
+						
 						pointCheck = true;
-						std::cout << "pointCheck" << pointCheck << std::endl;
+						if(PointLiesOnSegmentAndNotEndpoints(polygon.vertices[i],segC)){
+							pointOfIntersection = polygon.vertices[i];
+							std::cout << "pointCheckoth" << pointCheck << std::endl;
+						}else{
+							pointOfIntersection = polygon.vertices[k];
+						}
+						std::cout << "pointCheck1st" << pointCheck << std::endl;
 						if(pointOfIntersection == polygon.vertices[0]){
 						forI = 1;
+						}else{
+						i = i+1;
 						}
 					}
 

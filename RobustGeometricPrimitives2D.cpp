@@ -155,7 +155,7 @@ std::ostream&operator << (std::ostream& os, const Poi2D& output)
 	os << "(" << output.x << ", " << output.y << ")";
 	return os;
 }
-std::istream&operator >> (std::istream& is, const Poi2D& input)
+std::istream&operator >> (std::istream& is, Poi2D& input)
 {
 	std::cout << "Enter the x and y coordinates:";
 	is >> input.x >> input.y;
@@ -308,7 +308,7 @@ std::ostream&operator << (std::ostream& os, const Seg2D& output)
 }
 
 //Overloading the instream operator for segments.
-std::istream&operator >> (std::istream& is, const Seg2D& input)
+std::istream&operator >> (std::istream& is, Seg2D& input)
 {
 	std::cout << "Enter the coordinates for the points p1 and p2: ";
 	is >> input.p1 >> input.p2;
@@ -683,6 +683,11 @@ bool AttrHalfSeg2D::operator >(HalfSeg2D& operand)
 		return true;
 	else
 		return false;
+}
+std::ostream&operator << (std::ostream& os, AttrHalfSeg2D& output)
+{
+	os << "Segment:" << output.hseg.seg << "\nIs Left: " << output.hseg.isLeft<<"\n Inside above:"<<output.insideAbove;
+	return os;
 }
 /*Minimum Bounding Rectangle*/
 Rect2D::Rect2D()

@@ -39,7 +39,7 @@ public:
 	bool operator ==(const Poi2D& operand);
 	bool operator !=(const Poi2D& operand);
 	friend std::ostream&operator<<(std::ostream& os, const Poi2D& output);
-	friend std::istream&operator>>(std::istream& is, const Poi2D& input);
+	friend std::istream&operator>>(std::istream& is, Poi2D& input);
 
 };
 
@@ -73,7 +73,7 @@ public:
 	bool operator ==(const Seg2D& operand);
 	bool operator !=(const Seg2D& operand);
 	friend std::ostream&operator<<(std::ostream& os, const Seg2D& output);
-	friend std::istream&operator>>(std::istream& is, const Seg2D& input);
+	friend std::istream&operator>>(std::istream& is, Seg2D& input);
 };
 
 /*
@@ -108,7 +108,7 @@ public:
 	bool operator !=(const HalfSeg2D& operand);
 	Poi2D dominatingPoint();
 	friend std::ostream&operator <<(std::ostream& os, const HalfSeg2D& output);
-	friend std::istream&operator >>(std::istream& is, const HalfSeg2D& input);
+	friend std::istream&operator >>(std::istream& is, HalfSeg2D& input);
 
 };
 
@@ -143,7 +143,7 @@ public:
 	bool operator ==(const AttrHalfSeg2D& operand);
 	bool operator !=(const AttrHalfSeg2D& operand);
 	friend std::ostream&operator<<(std::ostream& os, const AttHalfSegVariable& output);
-	friend std::istream&operator>>(std::istream& is, const AttHalfSegVariable& input);
+	friend std::istream&operator>>(std::istream& is, AttHalfSegVariable& input);
 
 };
 

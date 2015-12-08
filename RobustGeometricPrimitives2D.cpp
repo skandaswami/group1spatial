@@ -734,18 +734,18 @@ Rect2D::~Rect2D()
 
 }
 
-std::ostream&operator << (std::ostream& os, const Rect2D& output)
+std::ostream&operator << (std::ostream& os, Rect2D& output)
 {
 	os << "topLeft: " << output.topLeft << "\nbottomRight: " << output.bottomRight;
 	return os;
 }
 
-std::istream&operator >> (std::istream& is, const Rect2D& input) 
+std::istream&operator >> (std::istream& is, Rect2D& input) 
 {
 	std::cout << "Enter the topLeft and bottomRight:";
-	is >> input.topLeft >> input.bottomRight;;
+	is >> input.topLeft >> input.bottomRight;
 	return is;
-}
+} 
 
 /* Simple Polygon2D */
 
@@ -896,8 +896,6 @@ bool PointLiesOnSegmentAndNotEndpoints(Poi2D& q, Seg2D& seg)
 //Returns the point that lies on the segment
 Poi2D getPointLiesOnSegmentAndNotEndpoints(Poi2D& poi1, Poi2D& poi2, Seg2D& seg)
 {
-	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
-	Number segyintercept = (seg.p1.y) - ((segslope)*seg.p1.x);
 		
 	if (PointLiesOnSegmentAndNotEndpoints(poi1,seg)) 
 		return poi1;
@@ -958,9 +956,8 @@ bool PointLiesBelowOrOnSegment(Poi2D& poi, Seg2D& seg)
 // Returns true if poi PointLies on the left end point of the segment.
 bool PointLiesOnLeftEndPointOfSegment(Poi2D& poi, Seg2D& seg)
 {
-	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
-	Number segyintercept = (seg.p1.y) - ((segslope)*seg.p1.x);
-	if ((poi.y == ((segslope*poi.x) + segyintercept)) && (poi.x == seg.p1.x && poi.y == seg.p1.y))
+	
+	if (PointLiesOnSegment(poi,seg) && (seg.p1==poi))
 		return true;
 	else
 		return false;
@@ -969,9 +966,7 @@ bool PointLiesOnLeftEndPointOfSegment(Poi2D& poi, Seg2D& seg)
 // Returns true if poi PointLies on the right end point of the segment.
 bool PointLiesOnRightEndPointOfSegment(Poi2D& poi, Seg2D& seg)
 {
-	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
-	Number segyintercept = (seg.p1.y) - ((segslope)*seg.p1.x);
-	if ((poi.y == ((segslope*poi.x) + segyintercept)) && (poi.x == seg.p2.x && poi.y == seg.p2.y))
+	if (PointLiesOnSegment(poi, seg) && (seg.p2 == poi))
 		return true;
 	else
 		return false;
@@ -980,12 +975,27 @@ bool PointLiesOnRightEndPointOfSegment(Poi2D& poi, Seg2D& seg)
 //Returns true if the point is collinear to the segment.
 bool PointIsCollinearToSegment(Poi2D& poi, Seg2D& seg)
 {
-	Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
-	Number pointslope = (seg.p1.y - poi.y) / (seg.p1.x - poi.x);
-	if (segslope == pointslope)
-		return true;
-	else 
-		return false;
+	if (seg.p2.x - seg.p1.x != Number("0"))
+	{
+		Number segslope = (seg.p2.y - seg.p1.y) / (seg.p2.x - seg.p1.x);
+		if (seg.p1.x - poi.x == Number("0"))
+			return false;
+		else
+		{ 
+		Number pointslope = (seg.p1.y - poi.y) / (seg.p1.x - poi.x);
+		if (pointslope==segslope)
+			return true;
+		else
+			return false;
+		}
+	}
+	else
+	{
+		if (poi.x == seg.p1.x)
+			return true;
+		else
+			return false;
+	}
 }
 
 // Returns true if poi PointLies to the left of the segment and is collinear.
@@ -1060,15 +1070,22 @@ bool SegmentLiesRightOfSegment(Seg2D& seg1, Seg2D& seg2)
 // Returns true if the segment is collinear.
 bool SegmentIsCollinear(Seg2D& seg1, Seg2D& seg2)
 {
-	Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
-	Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
-	Number seg1yintercept = (seg1.p1.y) - ((seg1slope)*seg1.p1.x);
-	Number seg2yintercept = (seg2.p1.y) - ((seg2slope)*seg2.p1.x);
-
-	if (seg1slope == seg2slope && seg1yintercept == seg2yintercept)
-		return true;
+	if (seg1.p2.x - seg1.p1.x == Number("0") || seg2.p2.x - seg2.p1.x == Number("0"))
+		if (seg1.p1.x == seg2.p2.x)
+			return true;
+		else
+			return false;
 	else
-		return false;
+	{
+		Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
+		Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
+		Number seg1yintercept = (seg1.p1.y) - ((seg1slope)*seg1.p1.x);
+		Number seg2yintercept = (seg2.p1.y) - ((seg2slope)*seg2.p1.x);
+		if (seg1slope == seg2slope && seg1yintercept == seg2yintercept)
+			return true;
+		else
+			return false;
+	}
 }
 
 // Returns true if seg1 SegmentLies to the left and is collinear to seg2.
@@ -1137,13 +1154,29 @@ bool SegmentIsCollinearAndCrossesRightEndpoint(Seg2D& seg1, Seg2D& seg2)
 //Returns true if the segments are parallel
 bool SegmentIsParallel(Seg2D& seg1, Seg2D& seg2)
 {
-	Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
-	Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
-	
-	if (seg1slope == seg2slope && (!SegmentIsCollinear(seg1, seg2)))
-		return true;
-	else
+	if (seg1.p2.x - seg1.p1.x == Number("0") && seg2.p2.x - seg2.p1.x != Number("0"))
+	{
 		return false;
+	}
+	if (seg2.p2.x - seg2.p1.x != Number("0") && seg2.p2.x - seg2.p1.x == Number("0"))
+	{
+		return false;
+	}
+	if (seg1.p2.x - seg1.p1.x == Number("0") && seg2.p2.x - seg2.p1.x == Number("0"))
+		if (seg1.p1.x == seg2.p2.x)
+			return false;
+		else
+			return true;
+	else
+	{
+		Number seg1slope = (seg1.p2.y - seg1.p1.y) / (seg1.p2.x - seg1.p1.x);
+		Number seg2slope = (seg2.p2.y - seg2.p1.y) / (seg2.p2.x - seg2.p1.x);
+
+		if (seg1slope == seg2slope && (!SegmentIsCollinear(seg1, seg2)))
+			return true;
+		else
+			return false;
+	}
 
 }
 //Returns true if the segments are parallel and seg1 lies above seg2.

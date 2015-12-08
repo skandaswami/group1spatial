@@ -1,4 +1,4 @@
-#ifndef ROBUSTGEOMETRICPRIMITIVES2D_H_
+#ifndef ROBUSTGEOMETRICPRIMITIVES2D_H_ 
 #define ROBUSTGEOMETRICPRIMITIVES2D_H_
 
 #include <iostream>
@@ -167,8 +167,8 @@ public:
 	~Rect2D();
 
 
-	friend std::ostream&operator<<(std::ostream& os, const Rect2D& output);
-	friend std::istream&operator>>(std::istream& is, const Rect2D& input);
+	friend std::ostream&operator<<(std::ostream& os, Rect2D& output);
+	friend std::istream&operator>>(std::istream& is, Rect2D& input);
 
 };
 //Class Polygon2D

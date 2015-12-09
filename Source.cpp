@@ -19,7 +19,7 @@ int main()
 	// cout << "Big Rational varaiable multiplication:" << a * b << endl;
 	// cout << "Big Rational varaiable division:" << a / b << endl;
 
-	Poi2D p1(Number("2.0"), Number("2.0"));
+	 Poi2D p1(Number("2.0"), Number("2.0"));
 	 Poi2D p2(Number("5.0"), Number("5.0"));
 	 Poi2D p3(Number("4.0"), Number("4.0"));
 	 Poi2D p4(Number("7.0"), Number("7.0"));
@@ -115,11 +115,15 @@ int main()
 	//vector<Poi2D> points = { Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0")),Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0"))};
 	
 
-	vector<Poi2D> points2 = { Poi2D(Number("2.0"), Number("7.0")), Poi2D(Number("5.0"), Number("10.0")),Poi2D(Number("8.0"), Number("7.0")), Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("2.0"), Number("1.0")),Poi2D(Number("5.0"), Number("3.0")),Poi2D(Number("5.0"), Number("5.0"))};
+	vector<Poi2D> points2 = { Poi2D(Number("5.0"), Number("10.0")),Poi2D(Number("8.0"), Number("7.0")), Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("2.0"), Number("1.0")),Poi2D(Number("5.0"), Number("3.0")),Poi2D(Number("5.0"), Number("5.0")),Poi2D(Number("2.0"), Number("7.0"))};
 	SimplePolygon2D testpolygon(points2);
 	
 	//Poi2D pi1 = Poi2D(Number("5.0"), Number("2.0"));
+
 	//Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
+
+	Poi2D pi1 = Poi2D(Number("3.0"), Number("5.0"));
+
 	//Poi2D pi = Poi2D(Number("1.0"), Number("1.0"));
 	//Poi2D po = Poi2D(Number("3.0"), Number("0.0"));
 	//Poi2D p10 = Poi2D(Number("11.0"), Number("12.0"));

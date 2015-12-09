@@ -116,19 +116,21 @@ int main()
 	//vector<Poi2D> points = { Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0")),Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0"))};
 	
 
-	vector<Poi2D> points2 = { Poi2D(Number("5.0"), Number("10.0")),Poi2D(Number("8.0"), Number("7.0")), Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("2.0"), Number("1.0")),Poi2D(Number("5.0"), Number("3.0")),Poi2D(Number("5.0"), Number("5.0")),Poi2D(Number("2.0"), Number("7.0"))};
+	//vector<Poi2D> points2 = { Poi2D(Number("5.0"), Number("10.0")),Poi2D(Number("8.0"), Number("7.0")), Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("2.0"), Number("1.0")),Poi2D(Number("5.0"), Number("3.0")),Poi2D(Number("5.0"), Number("5.0")),Poi2D(Number("2.0"), Number("7.0"))};
+	vector<Poi2D> points2 = { Poi2D(Number("2.0"), Number("10.0")),Poi2D(Number("4.0"), Number("12.0")), Poi2D(Number("4.0"), Number("14.0")),Poi2D(Number("8.0"), Number("14.0")),Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("1.0"), Number("1.0")),Poi2D(Number("1.0"), Number("3.0")),Poi2D(Number("6.0"), Number("3.0")) ,Poi2D(Number("6.0"), Number("4.0")),Poi2D(Number("2.0"), Number("4.0")),Poi2D(Number("2.0"), Number("6.0")),Poi2D(Number("6.0"), Number("8.0"))};
+	
 	SimplePolygon2D testpolygon(points2);
 	
 	//Poi2D pi1 = Poi2D(Number("5.0"), Number("2.0"));
 
 	//Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
 
-	Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
+	Poi2D pi1 = Poi2D(Number("2.0"), Number("2.0"));
 
 	//Poi2D pi = Poi2D(Number("1.0"), Number("1.0"));
 	//Poi2D po = Poi2D(Number("3.0"), Number("0.0"));
 	//Poi2D p10 = Poi2D(Number("11.0"), Number("12.0"));
-	//cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
+	cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
 	//cout <<"polygon inside or not test:pi"<<simplePointInsideSimplePolygon(pi, testpolygon)<<endl;
 	//cout <<"polygon inside or not test:po"<<simplePointInsideSimplePolygon(po, testpolygon)<<endl;
 	//cout << testpolygon;

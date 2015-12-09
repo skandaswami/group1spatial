@@ -903,7 +903,12 @@ bool PointLiesOnSegment(Poi2D& q, Seg2D& seg)
 }
 //Returns the point that lies on the segment and not on the endpoints.
 bool PointLiesOnSegmentAndNotEndpoints(Poi2D& poi, Seg2D& seg)
-{
+{	
+	if (!PointIsCollinearToSegment(poi, seg))
+	{
+		//std::cout << "not collinear";
+		return false;
+	}
 	if (PointLiesOnSegment(poi, seg) && ((poi != seg.p1)&&(poi != seg.p2)))
 		return true;
 	else
@@ -1679,7 +1684,7 @@ bool simplePointInsideSimplePolygon(Poi2D& poi, SimplePolygon2D& polygon)
 
 
 		}
-		std::cout << numbeOfIntersection;
+		std::cout <<"numbeOfIntersection"<< numbeOfIntersection << "------";
 		if ((numbeOfIntersection == 0) || (numbeOfIntersection % 2 != 0)){
 			return true;
 		}

@@ -256,6 +256,7 @@ bool Intersects(Seg2D& seg, Seg2D& seg1);
 int orientation(Poi2D p, Poi2D q, Poi2D r);
 bool SegmentIsLesserThanSegment(Seg2D& seg1, Seg2D& seg2);
 Poi2D IntersectionPoint(Seg2D& seg, Seg2D& seg1);
+bool IntersectsAndNotCollinearAndNotEndpoints(Seg2D& seg1, Seg2D& seg2);
 bool Meet(Seg2D& seg, Seg2D& seg1);
 Poi2D MeetingPoint(Seg2D& seg, Seg2D& seg1);
 bool Touch(Seg2D& seg, Seg2D& seg1);

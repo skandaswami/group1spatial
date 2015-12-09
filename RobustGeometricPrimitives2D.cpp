@@ -886,7 +886,9 @@ bool PointLiesOnSegment(Poi2D& q, Seg2D& seg)
 		maxp1p2y = seg.p2.y;
 	}
 
-	
+	//std::cout << "\nseg" << seg << std::endl;
+	//std::cout << "\npoi" << q << std::endl;
+	//std::cout << "\nminp1p2x" << minp1p2x << "maxp1p2x" << maxp1p2x << "minp1p2y" << minp1p2y << "maxp1p2y" << maxp1p2y;
 	if (minp1p2x <= q.x && q.x <= maxp1p2x
 		&& minp1p2y <= q.y && q.y <= maxp1p2y)
 	{
@@ -996,7 +998,7 @@ bool PointLiesOnRightEndPointOfSegment(Poi2D& poi, Seg2D& seg)
 //Returns true if the point is collinear to the segment.
 bool PointIsCollinearToSegment(Poi2D& poi, Seg2D& seg)
 {
-	std::cout << seg.p2.x - seg.p1.x << "diff";
+	//std::cout << seg.p2.x - seg.p1.x << "diff";
 	if (seg.p2.x - seg.p1.x != Number("0"))
 	{
 		if (poi == seg.p1 || poi == seg.p2)
@@ -1284,6 +1286,30 @@ int poly_orientation(Poi2D& p1, Poi2D& p2, Poi2D& q1)
 }
 
 //Returns true if line segment 'seg1' and 'seg2' intersect.
+bool IntersectsAndNotCollinearAndNotEndpoints(Seg2D& seg1, Seg2D& seg2)
+{
+	//std::cout << "seg1.p2:" << seg1.p2;
+	//std::cout << "\nlies on: of p2"<<PointLiesOnSegment(seg1.p2, seg2);
+	if (SegmentIsCollinear(seg1, seg2) || Meet(seg1, seg2) || PointLiesOnSegment(seg1.p1, seg2) || PointLiesOnSegment(seg1.p2, seg2) || PointLiesOnSegment(seg2.p1, seg1) || PointLiesOnSegment(seg2.p2, seg1))
+	{
+		//std::cout << "came here";
+		return false;
+	}
+	else
+	{
+		//std::cout << "came here";
+		int o1 = poly_orientation(seg1.p1, seg1.p2, seg2.p1);
+		int o2 = poly_orientation(seg1.p1, seg1.p2, seg2.p2);
+		int o3 = poly_orientation(seg2.p1, seg2.p2, seg1.p1);
+		int o4 = poly_orientation(seg2.p1, seg2.p2, seg1.p2);
+		if (o1 != o2 && o3 != o4)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+}
 bool Intersects(Seg2D& seg1, Seg2D& seg2)
 {
 	// Find the four orientations needed for general and special cases
@@ -1298,24 +1324,24 @@ bool Intersects(Seg2D& seg1, Seg2D& seg2)
 	if (o1 != o2 && o3 != o4)
 		return true;
 
-	if (PointLiesOnSegmentAndNotEndpoints(seg1.p1, seg2) || PointLiesOnSegmentAndNotEndpoints(seg1.p2, seg2) || PointLiesOnSegmentAndNotEndpoints(seg2.p1, seg1) || PointLiesOnSegmentAndNotEndpoints(seg2.p2, seg1))
+	if (PointLiesOnSegment(seg1.p1, seg2) || PointLiesOnSegment(seg1.p2, seg2) || PointLiesOnSegment(seg2.p1, seg1) || PointLiesOnSegment(seg2.p2, seg1))
 		return true;
 	// Special Cases
 
-	if (o1 == 0 && PointLiesOnSegmentAndNotEndpoints(seg2.p1, seg1))
+	if (o1 == 0 && PointLiesOnSegment(seg2.p1, seg1))
 		return true;
 
 	// seg1.p1, seg1.p2 and seg2.p1 are collinear and seg2.p2 lies on segment seg1
-	if (o2 == 0 && PointLiesOnSegmentAndNotEndpoints(seg2.p2, seg1))
+	if (o2 == 0 && PointLiesOnSegment(seg2.p2, seg1))
 		return true;
 
 	// p2, q2 and p1 are collinear and p1 lies on segment p2q2
-	if (o3 == 0 && PointLiesOnSegmentAndNotEndpoints(seg1.p1, seg2))
+	if (o3 == 0 && PointLiesOnSegment(seg1.p1, seg2))
 		return true;
 
 
 	// p2, q2 and q1 are collinear and q1 lies on segment p2q2
-	if (o4 == 0 && PointLiesOnSegmentAndNotEndpoints(seg1.p2, seg2))
+	if (o4 == 0 && PointLiesOnSegment(seg1.p2, seg2))
 		return true;
 
 	return false;

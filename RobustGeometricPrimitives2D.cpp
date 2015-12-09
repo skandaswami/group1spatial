@@ -1289,7 +1289,7 @@ bool Intersects(Seg2D& seg1, Seg2D& seg2)
 	// Find the four orientations needed for general and special cases
 
 	int o1 = poly_orientation(seg1.p1, seg1.p2, seg2.p1);
-	std::cout << "jjj" << std::endl;
+	//std::cout << "jjj" << std::endl;
 	int o2 = poly_orientation(seg1.p1, seg1.p2, seg2.p2);
 	int o3 = poly_orientation(seg2.p1, seg2.p2, seg1.p1);
 	int o4 = poly_orientation(seg2.p1, seg2.p2, seg1.p2);
@@ -1298,24 +1298,24 @@ bool Intersects(Seg2D& seg1, Seg2D& seg2)
 	if (o1 != o2 && o3 != o4)
 		return true;
 
-	if (PointLiesOnSegment(seg1.p1, seg2) || PointLiesOnSegment(seg1.p2, seg2) || PointLiesOnSegment(seg2.p1, seg1) || PointLiesOnSegment(seg2.p2, seg1))
+	if (PointLiesOnSegmentAndNotEndpoints(seg1.p1, seg2) || PointLiesOnSegmentAndNotEndpoints(seg1.p2, seg2) || PointLiesOnSegmentAndNotEndpoints(seg2.p1, seg1) || PointLiesOnSegmentAndNotEndpoints(seg2.p2, seg1))
 		return true;
 	// Special Cases
 
-	if (o1 == 0 && PointLiesOnSegment(seg2.p1, seg1))
+	if (o1 == 0 && PointLiesOnSegmentAndNotEndpoints(seg2.p1, seg1))
 		return true;
 
 	// seg1.p1, seg1.p2 and seg2.p1 are collinear and seg2.p2 lies on segment seg1
-	if (o2 == 0 && PointLiesOnSegment(seg2.p2, seg1))
+	if (o2 == 0 && PointLiesOnSegmentAndNotEndpoints(seg2.p2, seg1))
 		return true;
 
 	// p2, q2 and p1 are collinear and p1 lies on segment p2q2
-	if (o3 == 0 && PointLiesOnSegment(seg1.p1, seg2))
+	if (o3 == 0 && PointLiesOnSegmentAndNotEndpoints(seg1.p1, seg2))
 		return true;
 
 
 	// p2, q2 and q1 are collinear and q1 lies on segment p2q2
-	if (o4 == 0 && PointLiesOnSegment(seg1.p2, seg2))
+	if (o4 == 0 && PointLiesOnSegmentAndNotEndpoints(seg1.p2, seg2))
 		return true;
 
 	return false;
@@ -1491,17 +1491,20 @@ bool BasicPointInBoundingBox(Poi2D& poi, SimplePolygon2D& polygon)
 	Number miny = polygon.vertices[0].y;
 	Number maxx = polygon.vertices[0].x;
 	Number maxy = polygon.vertices[0].y;
-	for (int i = 0; i < polygon.vertices.size(); i++)
+	
+	for (int i = 1; i < polygon.vertices.size(); i++)
 	{
 		if (polygon.vertices[i].x < minx)
 			minx = polygon.vertices[i].x;
 		if (polygon.vertices[i].x > maxx)
 			maxx = polygon.vertices[i].x;
 		if (polygon.vertices[i].y < miny)
-			miny = polygon.vertices[i].x;
+			miny = polygon.vertices[i].y;
 		if (polygon.vertices[i].y > maxy)
-			maxy = polygon.vertices[i].x;
+			maxy = polygon.vertices[i].y;
+		
 	}
+	//std::cout << "BOUNDING BOX:\nminx" << minx << "maxx:" << maxx << "maxy" << maxy << "miny" << miny;
 	if (poi.x < minx || poi.y < miny || poi.x > maxx || poi.y > maxy)
 		return false;
 	else

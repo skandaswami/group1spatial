@@ -98,15 +98,15 @@ int main()
 	// }else{
 	// 	cout << "They don't meet -----";
 	// }
-	if (Intersects(s1, s2))
-	{
-		cout << "they intersect";
-		cout << "point of intersection:" << IntersectionPoint(s1, s2);
-	}
-	else
-	{
-		cout << "don't intersect";
-	}
+	// if (Intersects(s1, s2))
+	// {
+	// 	cout << "they intersect";
+	// 	cout << "point of intersection:" << IntersectionPoint(s1, s2);
+	// }
+	// else
+	// {
+	// 	cout << "don't intersect";
+	// }
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("2.0"), Number("4.0")), Poi2D(Number("2.0"), Number("2.0")), Poi2D(Number("4.0"), Number("2.0")), Poi2D(Number("4.0"), Number("0.0"))};
@@ -122,12 +122,12 @@ int main()
 
 	//Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
 
-	Poi2D pi1 = Poi2D(Number("3.0"), Number("5.0"));
+	Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
 
 	//Poi2D pi = Poi2D(Number("1.0"), Number("1.0"));
 	//Poi2D po = Poi2D(Number("3.0"), Number("0.0"));
 	//Poi2D p10 = Poi2D(Number("11.0"), Number("12.0"));
-	//cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
+	cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
 	//cout <<"polygon inside or not test:pi"<<simplePointInsideSimplePolygon(pi, testpolygon)<<endl;
 	//cout <<"polygon inside or not test:po"<<simplePointInsideSimplePolygon(po, testpolygon)<<endl;
 	//cout << testpolygon;
@@ -203,9 +203,4 @@ int main()
 	getchar();
 	return 0;
 
-	
-	
-	/*unsigned int a = 4333234234234 * 22450000000000;
-	cout << UINT_MAX<< endl << a << endl;
-	return 0;*/
 }

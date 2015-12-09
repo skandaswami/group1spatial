@@ -105,7 +105,7 @@ int main()
 	}
 	else
 	{
-		cout << "dont intersect";
+		cout << "don't intersect";
 	}
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
 	//vector<Poi2D> points = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0"))};
@@ -115,14 +115,15 @@ int main()
 	//vector<Poi2D> points = { Poi2D(Number("2.0"), Number("6.0")), Poi2D(Number("4.0"), Number("4.0")), Poi2D(Number("4.0"), Number("0.0")),Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("0.0"), Number("4.0"))};
 	
 
-	//vector<Poi2D> points2 = { Poi2D(Number("0.0"), Number("0.0")), Poi2D(Number("3.0"), Number("3.0")) };
-	//SimplePolygon2D testpolygon(points);
+	vector<Poi2D> points2 = { Poi2D(Number("2.0"), Number("7.0")), Poi2D(Number("5.0"), Number("10.0")),Poi2D(Number("8.0"), Number("7.0")), Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("2.0"), Number("1.0")),Poi2D(Number("5.0"), Number("3.0")),Poi2D(Number("5.0"), Number("5.0"))};
+	SimplePolygon2D testpolygon(points2);
 	
-	//Poi2D pi1 = Poi2D(Number("2.0"), Number("2.0"));
+	//Poi2D pi1 = Poi2D(Number("5.0"), Number("2.0"));
+	Poi2D pi1 = Poi2D(Number("4.0"), Number("1.5"));
 	//Poi2D pi = Poi2D(Number("1.0"), Number("1.0"));
 	//Poi2D po = Poi2D(Number("3.0"), Number("0.0"));
 	//Poi2D p10 = Poi2D(Number("11.0"), Number("12.0"));
-	//cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
+	cout <<"polygon inside or not test: ::::"<<simplePointInsideSimplePolygon(pi1, testpolygon)<<"hhh"<<endl;
 	//cout <<"polygon inside or not test:pi"<<simplePointInsideSimplePolygon(pi, testpolygon)<<endl;
 	//cout <<"polygon inside or not test:po"<<simplePointInsideSimplePolygon(po, testpolygon)<<endl;
 	//cout << testpolygon;
@@ -178,6 +179,22 @@ int main()
 	// 	cout << "the segments are parallel";
 	// else
 	// 	cout << "not parallel";
+
+	// Number num("0");
+	// Number num1("1");
+	// Number n("422223423531234");
+	// Number n1("2111");
+	// cout << n << " & " << n1 << endl;
+	// //cout << n1 << endl;
+	// cout << "\nmultiply: " << n*n1 << endl;
+	// cout << "\nadd: " << n+n1 << endl;
+	// cout << "\nsubtract: " << n1-n << endl;
+	// cout << "\ndivide: " << n/n1 << endl;
+
+	// cout << endl;
+	// cout << "divide 1 and 3: " << Number("1") / Number("3")<<endl;
+	// cout << "\ndivide 355 and 113 (pi approximation): " << Number("355") / Number("113") << endl;
+	// cout << "\ndivide 22 and 7 (pi approximation): " << Number("22") / Number("7") << endl;
 	
 	getchar();
 	return 0;

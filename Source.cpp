@@ -8,8 +8,154 @@ using namespace std;
 
 int main()
 {
+	/* Numbers */
+	/* sample code to run functions on bigintegers */
+	BigInteger a("-422223423531234");
+	BigInteger b("2111");
+	BigInteger c("122313124");
+	BigInteger d("122313124");
+
+	BigInteger e("5655770");
+	BigInteger f("1131154");
+	cout << "a = " << a<<endl;
+	cout << "b = " << b << endl;
+	cout << "c = " << c << endl;
+	cout << "d = " << d << endl;
+
+	//mathematical operations
+	cout << "a + b = " << a + b << endl;
+	cout << "a - b = " << a - b << endl;
+	cout << "a * b = " << a*b << endl;
+	cout << "a / b = " << a / b << endl;
+	cout << "a % b = " << a % b << endl;
+
+	//Power function
+	cout << "a ^ 2 = " << Pow(a, 2) << endl;
+	
+	//GCD
+	cout << "GCD of a and b = " << GCD(a, b) << endl;
+
+	//LCM
+	cout << "LCM of e and f = " << LCM(e, f) << endl;
+
+	//Absolute function
+	cout << "Absolute value of a = " << Abs(a) << endl;
+
+	//Logical Operations
+	if (a < b) {
+		cout << "a is lesser than b" << endl;
+	}
+	else
+		cout << "a is greater than b" << endl;
+
+	if (b > a) {
+		cout << "b is greater than a" << endl;
+	}
+	else
+		cout << "a is greater than b" << endl;
+
+	if (c == d) {
+		cout << "c is equal to d" << endl;
+	}
+	else
+		cout << "c is not equal to d" << endl;
+
+	if (a != b) {
+		cout << "a is not equal to b" << endl;
+	}
+	else
+		cout << "a is equal to b" << endl;
+
+
+
+	//BigRational
+	BigRational x("233242", "957505");
+	BigRational y("432", "918");
+	BigRational r("675", "123");
+	BigRational s("675", "123");
+
+	cout << "x = " << x << endl;
+	cout << "y = " << y << endl;
+	cout << "r = " << r << endl;
+	cout << "s = " << s << endl;
+
+	//mathematical operations
+	cout << "x + y = " << x + y << endl;
+	cout << "x - y = " << x - y << endl;
+	cout << "x * y = " << x * y << endl;
+	cout << "x / y = " << x / y << endl;
+
+	//logical operations
+	if (x < y) {
+		cout << "x is lesser than y" << endl;
+	}
+	else
+		cout << "x is greater than y" << endl;
+
+	if (x > y) {
+		cout << "x is greater than y" << endl;
+	}
+	else
+		cout << "y is greater than x" << endl;
+
+	if (r == s) {
+		cout << "r is equal to s" << endl;
+	}
+	else
+		cout << "r is not equal to s" << endl;
+
+	if (x != y) {
+		cout << "x is not equal to y" << endl;
+	}
+	else
+		cout << "x is equal to y" << endl;
 
 	
+	//Number
+	Number n1("27328733242342342.324242432312412414");
+	Number n2("436875634568075464.474223242353454364645");
+	Number n3("7487235544657569032.636332");
+	Number n4("7487235544657569032.636332");
+
+	cout << "n1 = " << n1 << endl;
+	cout << "n2 = " << n2 << endl;
+
+	//mathematical operations
+	cout << "n1 + n2 = " << n1 + n2 << endl;
+	cout << "n1 - n2 = " << n1 - n2 << endl;
+	cout << "n1 * n2 = " << n1 * n2 << endl;
+	cout << "n1 / n2 = " << n1 / n2 << endl;
+
+	//logical operations
+	if (n1 < n2) {
+		cout << "n1 is lesser than n2" << endl;
+	}
+	else{
+		cout << "n1 is greater than n2" << endl;
+	}	
+
+	if (x >= y) {
+		cout << "n1 is greater  or equal to n2" << endl;
+	}
+	else{
+		cout << "n2 is greater than n1" << endl;
+	}	
+
+	if (n3 == n4) {
+		cout << "n3 is equal to n4" << endl;
+	}
+	else{
+		cout << "n3 is not equal to n4" << endl;
+	}	
+
+	if (n1 != n2) {
+		cout << "n1 is not equal to n2" << endl;
+	}
+	else{
+		cout << "n1 is equal to n2" << endl;
+	}	
+
+	//-----------------------------------------------------//
 
 
 
@@ -130,7 +276,8 @@ int main()
 
 	*/
 	
-
+	cout << "\nRelationship Tests between Polygons , points and segment";
+	 cout << "\n---------------------------------------------------------------------------------------------------";
 	vector<Poi2D> points2 = { Poi2D(Number("2.0"), Number("10.0")),Poi2D(Number("4.0"), Number("12.0")), Poi2D(Number("4.0"), Number("14.0")),Poi2D(Number("8.0"), Number("14.0")),Poi2D(Number("8.0"), Number("1.0")),Poi2D(Number("1.0"), Number("1.0")),Poi2D(Number("1.0"), Number("3.0")),Poi2D(Number("6.0"), Number("3.0")) ,Poi2D(Number("6.0"), Number("4.0")),Poi2D(Number("2.0"), Number("4.0")),Poi2D(Number("2.0"), Number("6.0")),Poi2D(Number("6.0"), Number("8.0"))};
 	SimplePolygon2D testpolygon(points2);
 	Poi2D pi11 = Poi2D(Number("2.0"), Number("2.0"));
@@ -151,153 +298,6 @@ int main()
 	Poi2D pi16 = Poi2D(Number("2.0"), Number("6.0"));
 	Seg2D si2(pi15,pi16);
 	cout <<"segOnBoundaryOfSimplePolygon----"<< segOnBoundaryOfSimplePolygon(si2, testpolygon)<<"----"<<endl;
-
-
-
-
-	/* Numbers */
-	/* sample code to run functions on bigintegers */
-	BigInteger a("-422223423531234");
-	BigInteger b("2111");
-	BigInteger c("122313124");
-	BigInteger d("122313124");
-
-	cout << "a = " << a<<endl;
-	cout << "b = " << b << endl;
-	cout << "c = " << c << endl;
-	cout << "d = " << d << endl;
-
-	//mathematical operations
-	cout << "a + b = " << a + b << endl;
-	cout << "a - b = " << a - b << endl;
-	cout << "a * b = " << a*b << endl;
-	cout << "a / b = " << a / b << endl;
-	cout << "a % b = " << a % b << endl;
-
-	//Power function
-	cout << "a ^ 2 = " << Pow(a, 2) << endl;
-	
-	//GCD
-	cout << "GCD of a and b = " << GCD(a, b) << endl;
-
-	//LCM
-	cout << "LCM of a and b = " << LCM(a, b) << endl;
-
-	//Absolute function
-	cout << "Absolute value of a = " << Abs(a) << endl;
-
-	//Logical Operations
-	if (a < b) {
-		cout << "a is lesser than b" << endl;
-	}
-	else
-		cout << "a is greater than b" << endl;
-
-	if (b > a) {
-		cout << "b is greater than a" << endl;
-	}
-	else
-		cout << "a is greater than b" << endl;
-
-	if (c == d) {
-		cout << "c is equal to d" << endl;
-	}
-	else
-		cout << "c is not equal to d" << endl;
-
-	if (a != b) {
-		cout << "a is not equal to b" << endl;
-	}
-	else
-		cout << "a is equal to b" << endl;
-
-
-
-	//BigRational
-	BigRational x("233242", "957505");
-	BigRational y("432", "918");
-	BigRational r("675", "123");
-	BigRational s("675", "123");
-
-	cout << "x = " << x << endl;
-	cout << "y = " << y << endl;
-	cout << "r = " << r << endl;
-	cout << "s = " << s << endl;
-
-	//mathematical operations
-	cout << "x + y = " << x + y << endl;
-	cout << "x - y = " << x - y << endl;
-	cout << "x * y = " << x * y << endl;
-	cout << "x / y = " << x / y << endl;
-
-	//logical operations
-	if (x < y) {
-		cout << "x is lesser than y" << endl;
-	}
-	else
-		cout << "x is greater than y" << endl;
-
-	if (x > y) {
-		cout << "x is greater than y" << endl;
-	}
-	else
-		cout << "y is greater than x" << endl;
-
-	if (r == s) {
-		cout << "r is equal to s" << endl;
-	}
-	else
-		cout << "r is not equal to s" << endl;
-
-	if (x != y) {
-		cout << "x is not equal to y" << endl;
-	}
-	else
-		cout << "x is equal to y" << endl;
-
-	
-	//Number
-	Number n1("27328733242342342.324242432312412414");
-	Number n2("436875634568075464.474223242353454364645");
-	Number n3("7487235544657569032.636332");
-	Number n4("7487235544657569032.636332");
-
-	cout << "n1 = " << n1 << endl;
-	cout << "n2 = " << n2 << endl;
-
-	//mathematical operations
-	cout << "n1 + n2 = " << n1 + n2 << endl;
-	cout << "n1 - n2 = " << n1 - n2 << endl;
-	cout << "n1 * n2 = " << n1 * n2 << endl;
-	cout << "n1 / n2 = " << n1 / n2 << endl;
-
-	//logical operations
-	if (n1 < n2) {
-		cout << "n1 is lesser than n2" << endl;
-	}
-	else
-		cout << "n1 is greater than n2" << endl;
-
-	if (x >= y) {
-		cout << "n1 is greater  or equal to n2" << endl;
-	}
-	else
-		cout << "n2 is greater than n1" << endl;
-
-	if (n3 == n4) {
-		cout << "n3 is equal to n4" << endl;
-	}
-	else
-		cout << "n3 is not equal to n4" << endl;
-
-	if (n1 != n2) {
-		cout << "n1 is not equal to n2" << endl;
-	}
-	else
-		cout << "n1 is equal to n2" << endl;
-
-	//-----------------------------------------------------//
-
 	getchar();
 	return 0;
 
